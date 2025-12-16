@@ -3,17 +3,21 @@
  *
  * @author Daniel Hochleitner (original)
  * @contributor Maxwell da Silva Oliveira - M&S do Brasil LTDA
- * @version 2.0.0
+ * @version 2.0.1
  * @license MIT
  *
  * Updated for Oracle APEX 24.2 and signature_pad v5.x compatibility
  * LinkedIn: /maxwbh
+ *
+ * Bug Fixes:
+ * - #20/#21: Fixed Dynamic Action event not firing for 'Signature Saved'
+ * - #13: Added Page Items to Submit support
  */
 
 // global namespace
 var apexSignature = {
     // Plugin version
-    VERSION: '2.0.0',
+    VERSION: '2.0.1',
 
     /**
      * Parse string to boolean
@@ -63,7 +67,72 @@ var apexSignature = {
     },
 
     /**
+     * Trigger APEX event properly for Dynamic Actions
+     * This fixes issues #20 and #21 where DA events were not firing
+     * @param {string} pRegionId - Region static ID
+     * @param {string} pEventName - Event name to trigger
+     * @param {Object} pData - Event data
+     */
+    triggerEvent: function(pRegionId, pEventName, pData) {
+        // Get the region element - try multiple selectors for compatibility
+        var regionEl = document.getElementById(pRegionId);
+
+        // If not found by static_id, try with _signature suffix (plugin wrapper)
+        if (!regionEl) {
+            regionEl = document.getElementById(pRegionId + '_signature');
+        }
+
+        // Try jQuery selector as fallback
+        var $region = apex.jQuery('#' + pRegionId);
+        if ($region.length === 0) {
+            $region = apex.jQuery('#' + pRegionId + '_signature');
+        }
+
+        // Create event data object
+        var eventData = pData || {};
+        eventData.regionId = pRegionId;
+
+        // Method 1: Use apex.event.trigger (preferred for APEX 5.1+)
+        // This is the correct way to trigger events that Dynamic Actions can capture
+        if (regionEl && typeof apex.event !== 'undefined' && typeof apex.event.trigger === 'function') {
+            try {
+                apex.event.trigger(regionEl, pEventName, eventData);
+            } catch (e) {
+                console.warn('apexSignature: apex.event.trigger failed:', e);
+            }
+        }
+
+        // Method 2: jQuery trigger with custom event for backward compatibility
+        // Some older APEX versions or custom DA may listen via jQuery
+        if ($region.length > 0) {
+            try {
+                // Create a proper jQuery event object
+                var jqEvent = apex.jQuery.Event(pEventName);
+                jqEvent.data = eventData;
+                $region.trigger(jqEvent, [eventData]);
+            } catch (e) {
+                console.warn('apexSignature: jQuery trigger failed:', e);
+            }
+        }
+
+        // Method 3: Dispatch native CustomEvent for modern browsers
+        if (regionEl) {
+            try {
+                var customEvent = new CustomEvent(pEventName, {
+                    bubbles: true,
+                    cancelable: true,
+                    detail: eventData
+                });
+                regionEl.dispatchEvent(customEvent);
+            } catch (e) {
+                console.warn('apexSignature: CustomEvent dispatch failed:', e);
+            }
+        }
+    },
+
+    /**
      * Save signature to database via APEX AJAX
+     * Fixed: Event now fires correctly for Dynamic Actions (Issue #20/#21)
      * @param {string} pAjaxIdentifier - APEX AJAX identifier
      * @param {string} pRegionId - Region ID
      * @param {string} pImg - Image data URI
@@ -71,16 +140,17 @@ var apexSignature = {
      * @param {Object} options - Additional options (pageItems, etc.)
      */
     save2Db: function(pAjaxIdentifier, pRegionId, pImg, callback, options) {
-        const opts = options || {};
+        var self = this;
+        var opts = options || {};
 
         // Convert img DataURI to base64
-        const base64 = apexSignature.dataURI2base64(pImg);
+        var base64 = apexSignature.dataURI2base64(pImg);
 
         // Split base64 clob string to f01 array (30k chunks)
-        const f01Array = apexSignature.clob2Array(base64, 30000, []);
+        var f01Array = apexSignature.clob2Array(base64, 30000, []);
 
         // Build APEX Ajax options
-        const ajaxOptions = {
+        var ajaxOptions = {
             f01: f01Array
         };
 
@@ -95,43 +165,43 @@ var apexSignature = {
 
             // SUCCESS function
             success: function(pData) {
-                // Trigger APEX event on region element
-                const regionEl = document.getElementById(pRegionId);
-                if (regionEl) {
-                    apex.event.trigger(regionEl, 'apexsignature-saved-db', {
+                // CRITICAL FIX for Issue #20/#21:
+                // Use setTimeout to ensure DOM is ready and events propagate correctly
+                // This ensures the Dynamic Action event handler has time to bind
+                setTimeout(function() {
+                    // Trigger the saved event using our robust method
+                    apexSignature.triggerEvent(pRegionId, 'apexsignature-saved-db', {
                         data: pData,
-                        regionId: pRegionId
+                        success: true,
+                        base64Length: base64.length
                     });
-                }
-                // Also trigger jQuery event for backward compatibility
-                apex.jQuery('#' + pRegionId).trigger('apexsignature-saved-db');
 
-                // Execute callback
-                if (typeof callback === 'function') {
-                    callback(true, pData);
-                }
+                    // Execute callback AFTER event is triggered
+                    if (typeof callback === 'function') {
+                        callback(true, pData);
+                    }
+                }, 10);
             },
 
             // ERROR function
             error: function(xhr, pMessage, pError) {
-                // Trigger APEX error event
-                const regionEl = document.getElementById(pRegionId);
-                if (regionEl) {
-                    apex.event.trigger(regionEl, 'apexsignature-error-db', {
+                // Use setTimeout for consistency with success handler
+                setTimeout(function() {
+                    // Trigger the error event
+                    apexSignature.triggerEvent(pRegionId, 'apexsignature-error-db', {
                         message: pMessage,
                         error: pError,
-                        regionId: pRegionId
+                        success: false,
+                        xhr: xhr
                     });
-                }
-                // Also trigger jQuery event for backward compatibility
-                apex.jQuery('#' + pRegionId).trigger('apexsignature-error-db');
 
-                console.error('apexSignature.save2Db ERROR:', pMessage, pError);
+                    console.error('apexSignature.save2Db ERROR:', pMessage, pError);
 
-                // Execute callback
-                if (typeof callback === 'function') {
-                    callback(false, pMessage);
-                }
+                    // Execute callback AFTER event is triggered
+                    if (typeof callback === 'function') {
+                        callback(false, pMessage);
+                    }
+                }, 10);
             }
         });
     },
@@ -143,22 +213,29 @@ var apexSignature = {
      * @param {string} pLogging - Enable logging ('true' or 'false')
      */
     apexSignatureFnc: function(pRegionId, pOptions, pLogging) {
-        const vOptions = pOptions;
-        const vCanvas = document.getElementById(vOptions.canvasId);
-        const vLogging = apexSignature.parseBoolean(pLogging);
-        const vMinWidth = parseFloat(vOptions.lineMinWidth) || 0.5;
-        const vMaxWidth = parseFloat(vOptions.lineMaxWidth) || 2.5;
-        const vClearBtnSelector = vOptions.clearButton;
-        const vSaveBtnSelector = vOptions.saveButton;
-        const vEmptyAlert = vOptions.emptyAlert;
-        const vShowSpinner = apexSignature.parseBoolean(vOptions.showSpinner);
-        const vPageItems = vOptions.pageItems || null;
+        var self = this;
+        var vOptions = pOptions;
+        var vCanvas = document.getElementById(vOptions.canvasId);
+        var vLogging = apexSignature.parseBoolean(pLogging);
+        var vMinWidth = parseFloat(vOptions.lineMinWidth) || 0.5;
+        var vMaxWidth = parseFloat(vOptions.lineMaxWidth) || 2.5;
+        var vClearBtnSelector = vOptions.clearButton;
+        var vSaveBtnSelector = vOptions.saveButton;
+        var vEmptyAlert = vOptions.emptyAlert;
+        var vShowSpinner = apexSignature.parseBoolean(vOptions.showSpinner);
+        var vPageItems = vOptions.pageItems || null;
+
+        // Validate canvas exists
+        if (!vCanvas) {
+            console.error('apexSignature: Canvas element not found:', vOptions.canvasId);
+            return;
+        }
 
         // Canvas dimensions
-        const vCanvasWidth = vCanvas.width;
-        const vCanvasHeight = vCanvas.height;
-        const vClientWidth = document.documentElement.clientWidth;
-        const vClientHeight = document.documentElement.clientHeight;
+        var vCanvasWidth = vCanvas.width;
+        var vCanvasHeight = vCanvas.height;
+        var vClientWidth = document.documentElement.clientWidth;
+        var vClientHeight = document.documentElement.clientHeight;
 
         // Logging
         if (vLogging) {
@@ -191,7 +268,7 @@ var apexSignature = {
 
         // SIGNATURE PAD v5.x
         // Create SignaturePad instance with new API
-        const signaturePad = new SignaturePad(vCanvas, {
+        var signaturePad = new SignaturePad(vCanvas, {
             minWidth: vMinWidth,
             maxWidth: vMaxWidth,
             backgroundColor: vOptions.backgroundColor || 'rgba(0,0,0,0)',
@@ -202,22 +279,35 @@ var apexSignature = {
             velocityFilterWeight: 0.7
         });
 
-        // Store reference for external access
+        // Store reference for external access via apex.region API
         if (window.apex && window.apex.region) {
             apex.region.create(pRegionId, {
                 type: 'apexSignature',
                 signaturePad: signaturePad,
+                widget: function() {
+                    return signaturePad;
+                },
                 clear: function() {
                     signaturePad.clear();
+                    apexSignature.triggerEvent(pRegionId, 'apexsignature-cleared', {});
                 },
                 isEmpty: function() {
                     return signaturePad.isEmpty();
                 },
                 toDataURL: function(type) {
-                    return signaturePad.toDataURL(type);
+                    return signaturePad.toDataURL(type || 'image/png');
                 },
-                toSVG: function() {
-                    return signaturePad.toSVG();
+                toSVG: function(options) {
+                    return signaturePad.toSVG(options);
+                },
+                save: function() {
+                    // Programmatic save
+                    if (!signaturePad.isEmpty()) {
+                        var vImg = signaturePad.toDataURL('image/png');
+                        apexSignature.save2Db(vOptions.ajaxIdentifier, pRegionId, vImg, null, {
+                            pageItems: vPageItems
+                        });
+                    }
                 }
             });
         }
@@ -227,33 +317,27 @@ var apexSignature = {
             if (vLogging) {
                 console.log('apexSignatureFnc: Stroke started');
             }
-            // Trigger APEX event
-            apex.jQuery('#' + pRegionId).trigger('apexsignature-stroke-begin');
+            apexSignature.triggerEvent(pRegionId, 'apexsignature-stroke-begin', {
+                event: event
+            });
         });
 
         signaturePad.addEventListener('endStroke', function(event) {
             if (vLogging) {
                 console.log('apexSignatureFnc: Stroke ended');
             }
-            // Trigger APEX event
-            apex.jQuery('#' + pRegionId).trigger('apexsignature-stroke-end');
+            apexSignature.triggerEvent(pRegionId, 'apexsignature-stroke-end', {
+                event: event
+            });
         });
 
         // Clear button handler
         if (vClearBtnSelector) {
-            apex.jQuery(vClearBtnSelector).on('click', function(e) {
+            apex.jQuery(document).on('click', vClearBtnSelector, function(e) {
                 e.preventDefault();
                 signaturePad.clear();
 
-                // Trigger APEX event
-                const regionEl = document.getElementById(pRegionId);
-                if (regionEl) {
-                    apex.event.trigger(regionEl, 'apexsignature-cleared', {
-                        regionId: pRegionId
-                    });
-                }
-                // jQuery event for backward compatibility
-                apex.jQuery('#' + pRegionId).trigger('apexsignature-cleared');
+                apexSignature.triggerEvent(pRegionId, 'apexsignature-cleared', {});
 
                 if (vLogging) {
                     console.log('apexSignatureFnc: Signature cleared');
@@ -263,14 +347,14 @@ var apexSignature = {
 
         // Save button handler
         if (vSaveBtnSelector) {
-            apex.jQuery(vSaveBtnSelector).on('click', function(e) {
+            apex.jQuery(document).on('click', vSaveBtnSelector, function(e) {
                 e.preventDefault();
 
-                const vIsEmpty = signaturePad.isEmpty();
+                var vIsEmpty = signaturePad.isEmpty();
 
                 // Only proceed if signature is not empty
                 if (!vIsEmpty) {
-                    let lSpinner = null;
+                    var lSpinner = null;
 
                     // Show wait spinner
                     if (vShowSpinner) {
@@ -278,7 +362,7 @@ var apexSignature = {
                     }
 
                     // Get image data
-                    const vImg = signaturePad.toDataURL('image/png');
+                    var vImg = signaturePad.toDataURL('image/png');
 
                     if (vLogging) {
                         console.log('apexSignatureFnc: Saving signature to database...');
@@ -314,6 +398,14 @@ var apexSignature = {
                 }
             });
         }
+
+        // Trigger initialization complete event
+        setTimeout(function() {
+            apexSignature.triggerEvent(pRegionId, 'apexsignature-initialized', {
+                version: apexSignature.VERSION,
+                signaturePad: signaturePad
+            });
+        }, 0);
 
         if (vLogging) {
             console.log('apexSignatureFnc: Initialization complete');
