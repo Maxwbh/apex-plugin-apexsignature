@@ -1,8 +1,8 @@
 {
   "name" : "APEX Signature",
-  "version" : "2.0.1",
-  "description" : "<p>APEX Signature allows you to draw smooth signatures into a HTML5 canvas and enables you to save the resulting image into database.</p><p><b>Version 2.0.1 Bug Fixes:</b></p><ul><li>Fixed Issue #20/#21: Dynamic Action event 'Signature Saved' now fires correctly</li><li>Improved event triggering using multiple methods for maximum compatibility</li><li>Added new triggerEvent() method for robust APEX event handling</li></ul><p><b>Version 2.0.0 Updates:</b></p><ul><li>Updated signature_pad library to v5.0.4</li><li>Added Pointer Events API support for better touch/stylus handling</li><li>Added pressure sensitivity support</li><li>Improved event system using APEX native events</li><li>Added SVG export capability</li><li>Compatible with Oracle 23ai and APEX 24.2</li></ul><p><b>Short info about \"Commercially Supported\"</b></p><p>This plug-in remains free and open source under MIT license!</p><p>If you have any problems with it, you can always create an issue on GitHub and I may find the time at some point in the future to resolve it for you. The guys at FOEX also offer commercial support for this plug-in. They have added this plug-in as a part of their \"APEX Plug-in Support Package\", for more information please visit: https://www.foex.at/plugin-support. I have opted to include my plug-in in their support package because you can get professional support for any issues you face in a timely manner as well as the \"peace of mind\" that it will be supported for many years to come!</p>",
-  "keywords" : ["signature","draw","html5","canvas","touch","stylus","pressure","svg","oracle23ai","apex24"],
+  "version" : "3.0.0",
+  "description" : "<p>APEX Signature allows you to capture signatures through multiple methods: drawing, image upload, or webcam capture. Save the resulting image into your database.</p><p><b>Version 3.0.0 New Features:</b></p><ul><li>Multi-Input Capture: Draw, Upload, or Webcam modes</li><li>Tab interface for switching between capture modes</li><li>Drag-and-drop image upload support</li><li>Webcam capture with live video preview</li><li>New CSS file for styling with Universal Theme support</li><li>Dark mode compatible</li><li>New Dynamic Action events for all capture modes</li><li>New JavaScript API: getMode(), setMode()</li></ul><p><b>Version 2.0.1 Bug Fixes:</b></p><ul><li>Fixed Issue #20/#21: Dynamic Action events now fire correctly</li><li>Added Page Items to Submit support (Issue #13)</li></ul><p><b>Version 2.0.0 Updates:</b></p><ul><li>Updated signature_pad library to v5.0.4</li><li>Pointer Events API for touch/stylus</li><li>Oracle 23ai and APEX 24.2 compatibility</li></ul>",
+  "keywords" : ["signature","draw","upload","webcam","html5","canvas","touch","stylus","multi-input","oracle23ai","apex24"],
   "homepage" : "https://github.com/Dani3lSun/apex-plugin-apexsignature",
   "bugs" : {
     "url" : "https://github.com/Dani3lSun/apex-plugin-apexsignature/issues",
@@ -23,7 +23,7 @@
       "name" : "Maxwell da Silva Oliveira",
       "company" : "M&S do Brasil LTDA",
       "linkedin" : "maxwbh",
-      "role" : "Oracle 23ai / APEX 24.2 Compatibility Update"
+      "role" : "Multi-Input Capture, Oracle 23ai / APEX 24.2 Compatibility"
     }
   ],
   "repository" : {
@@ -31,9 +31,9 @@
     "url" : "https://github.com/Dani3lSun/apex-plugin-apexsignature.git"
   },
   "oracle" : {
-    "versions" : ["11.2.0.1", "12.1.0.1", "19c", "21c", "23ai"],
+    "versions" : ["19c", "21c", "23ai"],
     "apex" : {
-      "versions" : ["5.0.0", "19.2", "20.1", "20.2", "21.1", "21.2", "22.1", "22.2", "23.1", "23.2", "24.1", "24.2"],
+      "versions" : ["19.2", "20.1", "20.2", "21.1", "21.2", "22.1", "22.2", "23.1", "23.2", "24.1", "24.2"],
       "plugin" : {
         "internalName" : "DE.DANIELH.APEXSIGNATURE",
         "type" : "region",

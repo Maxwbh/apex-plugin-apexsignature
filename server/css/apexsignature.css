@@ -1,0 +1,324 @@
+/**
+ * APEX Signature Plugin - Styles
+ * Version: 3.0.0
+ *
+ * @author Daniel Hochleitner (original)
+ * @contributor Maxwell da Silva Oliveira - M&S do Brasil LTDA
+ * LinkedIn: /maxwbh
+ */
+
+/* =====================================================
+   Container & Wrapper
+   ===================================================== */
+.apex-signature-container {
+    display: inline-block;
+    max-width: 100%;
+}
+
+.apex-sig-wrapper {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--ut-component-border-color, #d0d0d0);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--ut-component-background-color, #fff);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* =====================================================
+   Tabs
+   ===================================================== */
+.apex-sig-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--ut-component-border-color, #d0d0d0);
+    background: var(--ut-component-background-color, #f8f8f8);
+}
+
+.apex-sig-tab {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    color: var(--ut-component-text-color, #404040);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.apex-sig-tab:hover {
+    background: var(--ut-component-highlight-color, #e8e8e8);
+}
+
+.apex-sig-tab.active {
+    background: var(--ut-component-background-color, #fff);
+    color: var(--ut-palette-primary, #0572ce);
+    border-bottom: 2px solid var(--ut-palette-primary, #0572ce);
+    margin-bottom: -1px;
+}
+
+.apex-sig-tab:focus {
+    outline: 2px solid var(--ut-palette-primary, #0572ce);
+    outline-offset: -2px;
+}
+
+.apex-sig-icon {
+    font-size: 16px;
+}
+
+/* =====================================================
+   Panels
+   ===================================================== */
+.apex-sig-panels {
+    position: relative;
+}
+
+.apex-sig-panel {
+    display: none;
+    padding: 16px;
+    min-height: 200px;
+}
+
+.apex-sig-panel.active {
+    display: block;
+}
+
+/* =====================================================
+   Canvas (Draw Mode)
+   ===================================================== */
+.apex-sig-canvas {
+    display: block;
+    border: 1px solid var(--ut-component-border-color, #ccc);
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.02) inset;
+    touch-action: none;
+    cursor: crosshair;
+    max-width: 100%;
+}
+
+.apex-sig-canvas:focus {
+    outline: 2px solid var(--ut-palette-primary, #0572ce);
+    outline-offset: 2px;
+}
+
+/* =====================================================
+   Upload Mode
+   ===================================================== */
+.apex-sig-upload-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    border: 2px dashed var(--ut-component-border-color, #ccc);
+    border-radius: 8px;
+    background: var(--ut-component-background-color, #fafafa);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 32px;
+}
+
+.apex-sig-upload-zone:hover,
+.apex-sig-upload-zone.dragover {
+    border-color: var(--ut-palette-primary, #0572ce);
+    background: rgba(5, 114, 206, 0.05);
+}
+
+.apex-sig-upload-icon {
+    font-size: 48px;
+    color: var(--ut-component-text-muted-color, #909090);
+    margin-bottom: 12px;
+}
+
+.apex-sig-upload-text {
+    color: var(--ut-component-text-muted-color, #606060);
+    font-size: 14px;
+    text-align: center;
+    margin: 0;
+}
+
+.apex-sig-upload-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.apex-sig-upload-preview,
+.apex-sig-webcam-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 200px;
+    padding: 16px;
+}
+
+.apex-sig-preview-img {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.apex-sig-remove-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.apex-sig-remove-btn:hover {
+    background: rgba(220, 53, 69, 0.9);
+}
+
+.apex-sig-remove-btn:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* =====================================================
+   Webcam Mode
+   ===================================================== */
+.apex-sig-video-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.apex-sig-video {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 4px;
+    background: #000;
+}
+
+.apex-sig-capture-canvas {
+    display: none;
+}
+
+.apex-sig-capture-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    background: var(--ut-palette-primary, #0572ce);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.apex-sig-capture-btn:hover {
+    background: var(--ut-palette-primary-shade, #045aa3);
+}
+
+.apex-sig-capture-btn:focus {
+    outline: 2px solid var(--ut-palette-primary, #0572ce);
+    outline-offset: 2px;
+}
+
+/* =====================================================
+   Responsive
+   ===================================================== */
+@media (max-width: 640px) {
+    .apex-sig-tab {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .apex-sig-tab .apex-sig-icon {
+        display: none;
+    }
+
+    .apex-sig-panel {
+        padding: 12px;
+    }
+
+    .apex-sig-upload-zone {
+        padding: 24px;
+        min-height: 150px;
+    }
+
+    .apex-sig-upload-icon {
+        font-size: 36px;
+    }
+}
+
+/* =====================================================
+   Dark Mode Support (Universal Theme)
+   ===================================================== */
+.t-PageBody--dark .apex-sig-wrapper,
+[data-theme-style="dark"] .apex-sig-wrapper {
+    background: var(--ut-component-background-color, #1a1a1a);
+    border-color: var(--ut-component-border-color, #404040);
+}
+
+.t-PageBody--dark .apex-sig-tabs,
+[data-theme-style="dark"] .apex-sig-tabs {
+    background: var(--ut-component-background-color, #252525);
+}
+
+.t-PageBody--dark .apex-sig-upload-zone,
+[data-theme-style="dark"] .apex-sig-upload-zone {
+    background: var(--ut-component-background-color, #252525);
+    border-color: var(--ut-component-border-color, #404040);
+}
+
+.t-PageBody--dark .apex-sig-upload-zone:hover,
+.t-PageBody--dark .apex-sig-upload-zone.dragover,
+[data-theme-style="dark"] .apex-sig-upload-zone:hover,
+[data-theme-style="dark"] .apex-sig-upload-zone.dragover {
+    background: rgba(5, 114, 206, 0.1);
+}
+
+/* =====================================================
+   Accessibility
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .apex-sig-tab,
+    .apex-sig-upload-zone,
+    .apex-sig-capture-btn,
+    .apex-sig-remove-btn {
+        transition: none;
+    }
+}
+
+/* High contrast mode */
+@media (forced-colors: active) {
+    .apex-sig-tab.active {
+        border-bottom: 3px solid CanvasText;
+    }
+
+    .apex-sig-upload-zone {
+        border: 2px dashed CanvasText;
+    }
+
+    .apex-sig-capture-btn {
+        border: 2px solid CanvasText;
+    }
+}
