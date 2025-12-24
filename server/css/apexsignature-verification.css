@@ -1,0 +1,877 @@
+/**
+ * APEX Signature - Verification Module Styles
+ * Version: 3.6.0
+ *
+ * Styles for verification badges, status indicators, and audit displays.
+ *
+ * @author Maxwell da Silva Oliveira
+ * @company M&S do Brasil LTDA
+ * @linkedin /maxwbh
+ */
+
+/* ========================================
+   CSS Variables
+   ======================================== */
+
+:root {
+    /* Status Colors */
+    --apex-sig-verify-valid: #10b981;
+    --apex-sig-verify-valid-bg: #d1fae5;
+    --apex-sig-verify-invalid: #ef4444;
+    --apex-sig-verify-invalid-bg: #fee2e2;
+    --apex-sig-verify-tampered: #f59e0b;
+    --apex-sig-verify-tampered-bg: #fef3c7;
+    --apex-sig-verify-pending: #6b7280;
+    --apex-sig-verify-pending-bg: #f3f4f6;
+    --apex-sig-verify-unknown: #8b5cf6;
+    --apex-sig-verify-unknown-bg: #ede9fe;
+
+    /* Badge */
+    --apex-sig-badge-padding: 6px 12px;
+    --apex-sig-badge-radius: 20px;
+    --apex-sig-badge-font-size: 12px;
+    --apex-sig-badge-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    /* Animation */
+    --apex-sig-verify-transition: all 0.3s ease;
+}
+
+/* ========================================
+   Verification Badge
+   ======================================== */
+
+.apex-sig-verification-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: var(--apex-sig-badge-padding);
+    border-radius: var(--apex-sig-badge-radius);
+    font-size: var(--apex-sig-badge-font-size);
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    box-shadow: var(--apex-sig-badge-shadow);
+    transition: var(--apex-sig-verify-transition);
+    z-index: 100;
+    white-space: nowrap;
+    user-select: none;
+}
+
+/* Status Variants */
+.apex-sig-verification-badge--valid {
+    background-color: var(--apex-sig-verify-valid-bg);
+    color: var(--apex-sig-verify-valid);
+    border: 1px solid var(--apex-sig-verify-valid);
+}
+
+.apex-sig-verification-badge--invalid {
+    background-color: var(--apex-sig-verify-invalid-bg);
+    color: var(--apex-sig-verify-invalid);
+    border: 1px solid var(--apex-sig-verify-invalid);
+}
+
+.apex-sig-verification-badge--tampered {
+    background-color: var(--apex-sig-verify-tampered-bg);
+    color: var(--apex-sig-verify-tampered);
+    border: 1px solid var(--apex-sig-verify-tampered);
+}
+
+.apex-sig-verification-badge--pending {
+    background-color: var(--apex-sig-verify-pending-bg);
+    color: var(--apex-sig-verify-pending);
+    border: 1px solid var(--apex-sig-verify-pending);
+}
+
+.apex-sig-verification-badge--unknown {
+    background-color: var(--apex-sig-verify-unknown-bg);
+    color: var(--apex-sig-verify-unknown);
+    border: 1px solid var(--apex-sig-verify-unknown);
+}
+
+/* Badge Icon */
+.apex-sig-verification-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+/* Badge Text */
+.apex-sig-verification-text {
+    line-height: 1;
+}
+
+/* Badge Timestamp */
+.apex-sig-verification-timestamp {
+    font-size: 10px;
+    font-weight: 400;
+    opacity: 0.8;
+    margin-left: 4px;
+    padding-left: 8px;
+    border-left: 1px solid currentColor;
+}
+
+/* ========================================
+   Badge Positions
+   ======================================== */
+
+.apex-sig-verification-badge--top-right {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.apex-sig-verification-badge--top-left {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+.apex-sig-verification-badge--bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+}
+
+.apex-sig-verification-badge--bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+}
+
+.apex-sig-verification-badge--inline {
+    position: relative;
+    margin: 8px 0;
+}
+
+/* ========================================
+   Badge Animations
+   ======================================== */
+
+.apex-sig-verification-badge--hiding {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/* Pulse animation for pending */
+.apex-sig-verification-badge--pending .apex-sig-verification-icon {
+    animation: apex-sig-verify-pulse 2s infinite;
+}
+
+@keyframes apex-sig-verify-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Shake animation for tampered */
+.apex-sig-verification-badge--tampered {
+    animation: apex-sig-verify-shake 0.5s ease-in-out;
+}
+
+@keyframes apex-sig-verify-shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-2px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(2px);
+    }
+}
+
+/* Success animation for valid */
+.apex-sig-verification-badge--valid.apex-sig-verification-badge--animate {
+    animation: apex-sig-verify-pop 0.4s ease-out;
+}
+
+@keyframes apex-sig-verify-pop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ========================================
+   Verification Panel
+   ======================================== */
+
+.apex-sig-verification-panel {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.apex-sig-verification-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.apex-sig-verification-panel__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.apex-sig-verification-panel__title svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ========================================
+   Verification Details
+   ======================================== */
+
+.apex-sig-verification-details {
+    display: grid;
+    gap: 8px;
+}
+
+.apex-sig-verification-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.apex-sig-verification-detail__label {
+    color: #6b7280;
+    min-width: 100px;
+    flex-shrink: 0;
+}
+
+.apex-sig-verification-detail__value {
+    color: #1f2937;
+    word-break: break-all;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 12px;
+}
+
+.apex-sig-verification-detail__value--hash {
+    background: #f3f4f6;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* ========================================
+   Check List
+   ======================================== */
+
+.apex-sig-verification-checks {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0 0;
+}
+
+.apex-sig-verification-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 13px;
+}
+
+.apex-sig-verification-check:last-child {
+    border-bottom: none;
+}
+
+.apex-sig-verification-check__icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.apex-sig-verification-check__icon--pass {
+    background: var(--apex-sig-verify-valid-bg);
+    color: var(--apex-sig-verify-valid);
+}
+
+.apex-sig-verification-check__icon--fail {
+    background: var(--apex-sig-verify-invalid-bg);
+    color: var(--apex-sig-verify-invalid);
+}
+
+.apex-sig-verification-check__icon svg {
+    width: 12px;
+    height: 12px;
+}
+
+.apex-sig-verification-check__text {
+    color: #374151;
+}
+
+/* ========================================
+   Audit Log Display
+   ======================================== */
+
+.apex-sig-audit-log {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.apex-sig-audit-log__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.apex-sig-audit-log__title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+}
+
+.apex-sig-audit-log__count {
+    font-size: 11px;
+    color: #6b7280;
+    background: #e5e7eb;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.apex-sig-audit-log__entries {
+    padding: 8px;
+}
+
+.apex-sig-audit-entry {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    background: #fff;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    border: 1px solid #e5e7eb;
+    font-size: 12px;
+    transition: background-color 0.2s;
+}
+
+.apex-sig-audit-entry:hover {
+    background: #f3f4f6;
+}
+
+.apex-sig-audit-entry:last-child {
+    margin-bottom: 0;
+}
+
+.apex-sig-audit-entry__time {
+    color: #9ca3af;
+    font-size: 11px;
+    min-width: 140px;
+    flex-shrink: 0;
+}
+
+.apex-sig-audit-entry__action {
+    font-weight: 500;
+    color: #1f2937;
+    min-width: 150px;
+    flex-shrink: 0;
+}
+
+.apex-sig-audit-entry__action--signature_created {
+    color: var(--apex-sig-verify-valid);
+}
+
+.apex-sig-audit-entry__action--signature_cleared {
+    color: var(--apex-sig-verify-tampered);
+}
+
+.apex-sig-audit-entry__action--verification_displayed {
+    color: #3b82f6;
+}
+
+.apex-sig-audit-entry__data {
+    color: #6b7280;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ========================================
+   Comparison Display
+   ======================================== */
+
+.apex-sig-comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.apex-sig-comparison__signature {
+    text-align: center;
+}
+
+.apex-sig-comparison__signature img {
+    max-width: 100%;
+    max-height: 100px;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.apex-sig-comparison__label {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 8px;
+}
+
+.apex-sig-comparison__result {
+    text-align: center;
+    padding: 12px;
+}
+
+.apex-sig-comparison__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+}
+
+.apex-sig-comparison__icon--match {
+    background: var(--apex-sig-verify-valid-bg);
+    color: var(--apex-sig-verify-valid);
+}
+
+.apex-sig-comparison__icon--mismatch {
+    background: var(--apex-sig-verify-invalid-bg);
+    color: var(--apex-sig-verify-invalid);
+}
+
+.apex-sig-comparison__icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.apex-sig-comparison__similarity {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.apex-sig-comparison__text {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* ========================================
+   Metadata Display
+   ======================================== */
+
+.apex-sig-metadata {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.apex-sig-metadata__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.apex-sig-metadata__item {
+    background: #fff;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+}
+
+.apex-sig-metadata__label {
+    font-size: 11px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.apex-sig-metadata__value {
+    font-size: 13px;
+    color: #1f2937;
+    word-break: break-all;
+}
+
+.apex-sig-metadata__value--mono {
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 11px;
+}
+
+/* ========================================
+   Hash Display
+   ======================================== */
+
+.apex-sig-hash-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1f2937;
+    color: #e5e7eb;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 12px;
+    overflow-x: auto;
+}
+
+.apex-sig-hash-display__label {
+    color: #9ca3af;
+    flex-shrink: 0;
+}
+
+.apex-sig-hash-display__value {
+    color: #10b981;
+    word-break: break-all;
+}
+
+.apex-sig-hash-display__copy {
+    background: transparent;
+    border: 1px solid #4b5563;
+    color: #9ca3af;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+
+.apex-sig-hash-display__copy:hover {
+    background: #374151;
+    color: #fff;
+}
+
+/* ========================================
+   Certificate Section (Future)
+   ======================================== */
+
+.apex-sig-certificate {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.apex-sig-certificate__icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 12px;
+    color: #0284c7;
+}
+
+.apex-sig-certificate__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0369a1;
+    margin: 0 0 4px 0;
+}
+
+.apex-sig-certificate__text {
+    font-size: 12px;
+    color: #0284c7;
+    margin: 0;
+}
+
+/* ========================================
+   Dark Mode Support
+   ======================================== */
+
+.apex-sig-dark-mode .apex-sig-verification-badge--valid,
+[data-theme="dark"] .apex-sig-verification-badge--valid {
+    background-color: rgba(16, 185, 129, 0.2);
+    border-color: rgba(16, 185, 129, 0.5);
+}
+
+.apex-sig-dark-mode .apex-sig-verification-badge--invalid,
+[data-theme="dark"] .apex-sig-verification-badge--invalid {
+    background-color: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+.apex-sig-dark-mode .apex-sig-verification-badge--tampered,
+[data-theme="dark"] .apex-sig-verification-badge--tampered {
+    background-color: rgba(245, 158, 11, 0.2);
+    border-color: rgba(245, 158, 11, 0.5);
+}
+
+.apex-sig-dark-mode .apex-sig-verification-panel,
+[data-theme="dark"] .apex-sig-verification-panel {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-verification-panel__title,
+[data-theme="dark"] .apex-sig-verification-panel__title {
+    color: #f3f4f6;
+}
+
+.apex-sig-dark-mode .apex-sig-verification-panel__header,
+[data-theme="dark"] .apex-sig-verification-panel__header {
+    border-color: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-verification-detail__label,
+[data-theme="dark"] .apex-sig-verification-detail__label {
+    color: #9ca3af;
+}
+
+.apex-sig-dark-mode .apex-sig-verification-detail__value,
+[data-theme="dark"] .apex-sig-verification-detail__value {
+    color: #f3f4f6;
+}
+
+.apex-sig-dark-mode .apex-sig-verification-detail__value--hash,
+[data-theme="dark"] .apex-sig-verification-detail__value--hash {
+    background: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-audit-log,
+[data-theme="dark"] .apex-sig-audit-log {
+    background: #111827;
+    border-color: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-audit-log__header,
+[data-theme="dark"] .apex-sig-audit-log__header {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-audit-entry,
+[data-theme="dark"] .apex-sig-audit-entry {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-audit-entry:hover,
+[data-theme="dark"] .apex-sig-audit-entry:hover {
+    background: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-audit-entry__action,
+[data-theme="dark"] .apex-sig-audit-entry__action {
+    color: #f3f4f6;
+}
+
+.apex-sig-dark-mode .apex-sig-metadata,
+[data-theme="dark"] .apex-sig-metadata {
+    background: #111827;
+    border-color: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-metadata__item,
+[data-theme="dark"] .apex-sig-metadata__item {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-metadata__value,
+[data-theme="dark"] .apex-sig-metadata__value {
+    color: #f3f4f6;
+}
+
+.apex-sig-dark-mode .apex-sig-comparison,
+[data-theme="dark"] .apex-sig-comparison {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-comparison__signature img,
+[data-theme="dark"] .apex-sig-comparison__signature img {
+    border-color: #374151;
+    background: #111827;
+}
+
+.apex-sig-dark-mode .apex-sig-comparison__similarity,
+[data-theme="dark"] .apex-sig-comparison__similarity {
+    color: #f3f4f6;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+    .apex-sig-verification-badge {
+        padding: 4px 10px;
+        font-size: 11px;
+    }
+
+    .apex-sig-verification-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    .apex-sig-verification-timestamp {
+        display: none;
+    }
+
+    .apex-sig-verification-panel {
+        padding: 12px;
+    }
+
+    .apex-sig-verification-detail {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .apex-sig-verification-detail__label {
+        min-width: auto;
+    }
+
+    .apex-sig-metadata__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .apex-sig-comparison {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .apex-sig-comparison__result {
+        order: -1;
+    }
+
+    .apex-sig-audit-entry {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .apex-sig-audit-entry__time,
+    .apex-sig-audit-entry__action {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .apex-sig-hash-display {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .apex-sig-hash-display__copy {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+    .apex-sig-verification-badge {
+        box-shadow: none;
+        border-width: 2px;
+    }
+
+    .apex-sig-verification-badge--valid {
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .apex-sig-audit-log {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .apex-sig-hash-display__copy {
+        display: none;
+    }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+.apex-sig-verification-badge:focus {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+.apex-sig-hash-display__copy:focus {
+    outline: 2px solid #10b981;
+    outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .apex-sig-verification-badge {
+        border-width: 2px;
+    }
+
+    .apex-sig-verification-badge--valid {
+        background: #fff;
+        color: #000;
+        border-color: #000;
+    }
+
+    .apex-sig-verification-badge--invalid {
+        background: #fff;
+        color: #000;
+        border-color: #000;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .apex-sig-verification-badge,
+    .apex-sig-verification-badge--pending .apex-sig-verification-icon,
+    .apex-sig-verification-badge--tampered,
+    .apex-sig-verification-badge--valid.apex-sig-verification-badge--animate {
+        animation: none;
+        transition: none;
+    }
+}
