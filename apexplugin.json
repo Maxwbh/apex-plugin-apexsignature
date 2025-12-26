@@ -1,48 +1,162 @@
 {
-  "name" : "APEX Signature",
-  "version" : "2.0.1",
-  "description" : "<p>APEX Signature allows you to draw smooth signatures into a HTML5 canvas and enables you to save the resulting image into database.</p><p><b>Version 2.0.1 Bug Fixes:</b></p><ul><li>Fixed Issue #20/#21: Dynamic Action event 'Signature Saved' now fires correctly</li><li>Improved event triggering using multiple methods for maximum compatibility</li><li>Added new triggerEvent() method for robust APEX event handling</li></ul><p><b>Version 2.0.0 Updates:</b></p><ul><li>Updated signature_pad library to v5.0.4</li><li>Added Pointer Events API support for better touch/stylus handling</li><li>Added pressure sensitivity support</li><li>Improved event system using APEX native events</li><li>Added SVG export capability</li><li>Compatible with Oracle 23ai and APEX 24.2</li></ul><p><b>Short info about \"Commercially Supported\"</b></p><p>This plug-in remains free and open source under MIT license!</p><p>If you have any problems with it, you can always create an issue on GitHub and I may find the time at some point in the future to resolve it for you. The guys at FOEX also offer commercial support for this plug-in. They have added this plug-in as a part of their \"APEX Plug-in Support Package\", for more information please visit: https://www.foex.at/plugin-support. I have opted to include my plug-in in their support package because you can get professional support for any issues you face in a timely manner as well as the \"peace of mind\" that it will be supported for many years to come!</p>",
-  "keywords" : ["signature","draw","html5","canvas","touch","stylus","pressure","svg","oracle23ai","apex24"],
-  "homepage" : "https://github.com/Dani3lSun/apex-plugin-apexsignature",
-  "bugs" : {
-    "url" : "https://github.com/Maxwbh/apex-plugin-apexsignature/issues",
-    "email" : "daniel@danielh.de"
+  "name": "APEX Signature",
+  "version": "3.8.0",
+  "description": "<h3>APEX Signature v3.8.0</h3><p>Plugin moderno de captura de assinatura para Oracle APEX com suporte multi-entrada, assinatura de PDF e recursos avancados.</p><h4>Creditos</h4><p><b>Autor Original:</b> Daniel Hochleitner (<a href='https://github.com/Dani3lSun'>@Dani3lSun</a>)</p><p><b>Modernizacao v3.x:</b> Maxwell da Silva Oliveira (<a href='https://github.com/Maxwbh'>@maxwbh</a>) - M&S do Brasil LTDA</p><h4>Novidades v3.x</h4><ul><li><b>v3.0.0</b> - Captura Multi-Entrada (Desenho, Upload, Webcam)</li><li><b>v3.1.0</b> - Assinatura de Documentos PDF com posicionamento drag-drop</li><li><b>v3.2.0</b> - Templates de Assinatura (salvar e reutilizar)</li><li><b>v3.3.0</b> - Barra de Ferramentas Aprimorada (cores, espessura, desfazer)</li><li><b>v3.4.0</b> - Carimbo de Data/Hora customizavel</li><li><b>v3.5.0</b> - Modo Rubricas/Iniciais compacto</li><li><b>v3.6.0</b> - Verificacao SHA-256 e deteccao de adulteracao</li><li><b>v3.7.0</b> - Otimizacao Mobile (gestos touch, fullscreen, stylus)</li><li><b>v3.8.0</b> - Exportacao Multi-Formato (PNG, JPEG, SVG, PDF, WebP)</li></ul><p>Compativel com Oracle 23ai e APEX 24.2</p>",
+  "keywords": [
+    "signature",
+    "assinatura",
+    "draw",
+    "upload",
+    "webcam",
+    "html5",
+    "canvas",
+    "touch",
+    "stylus",
+    "pressure",
+    "pdf",
+    "docsign",
+    "templates",
+    "verification",
+    "sha256",
+    "mobile",
+    "fullscreen",
+    "export",
+    "png",
+    "jpeg",
+    "svg",
+    "webp",
+    "timestamp",
+    "initials",
+    "rubrica",
+    "oracle23ai",
+    "apex24"
+  ],
+  "homepage": "https://github.com/Maxwbh/apex-plugin-apexsignature",
+  "bugs": {
+    "url": "https://github.com/Maxwbh/apex-plugin-apexsignature/issues"
   },
-  "license" : "MIT",
-  "commercial" : "No",
-  "commercially_supported": "Yes",
-  "author" : {
-    "name" : "Daniel Hochleitner",
-    "email" : "daniel@danielh.de",
-    "url" : "https://danielhochleitner.de",
-    "twitter" : "Maxwbh",
-    "donationUrl" : "https://www.paypal.me/DanielHochleitnerIT/3"
+  "license": "MIT",
+  "commercial": "No",
+  "commercially_supported": "No",
+  "author": {
+    "name": "Daniel Hochleitner",
+    "email": "daniel@danielh.de",
+    "url": "https://danielhochleitner.de",
+    "github": "Dani3lSun",
+    "role": "Original Author (v1.x)"
   },
-  "contributors" : [
+  "maintainer": {
+    "name": "Maxwell da Silva Oliveira",
+    "company": "M&S do Brasil LTDA",
+    "linkedin": "maxwbh",
+    "github": "Maxwbh",
+    "role": "v3.x Development and Maintenance"
+  },
+  "contributors": [
     {
-      "name" : "Maxwell da Silva Oliveira",
-      "company" : "M&S do Brasil LTDA",
-      "linkedin" : "maxwbh",
-      "role" : "Multi-Input Capture, Oracle 23ai / APEX 24.2 Compatibility"
+      "name": "Daniel Hochleitner",
+      "github": "Dani3lSun",
+      "role": "Original Author - Base Plugin v1.x"
+    },
+    {
+      "name": "Maxwell da Silva Oliveira",
+      "company": "M&S do Brasil LTDA",
+      "linkedin": "maxwbh",
+      "github": "Maxwbh",
+      "role": "v3.x Series - Multi-Input, DocSign, Templates, Toolbar, Timestamp, Initials, Verification, Mobile, Export"
     }
   ],
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/Maxwbh/apex-plugin-apexsignature.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Maxwbh/apex-plugin-apexsignature.git"
   },
-  "oracle" : {
-    "versions" : ["19c", "21c", "23ai"],
-    "apex" : {
-      "versions" : ["19.2", "20.1", "20.2", "21.1", "21.2", "22.1", "22.2", "23.1", "23.2", "24.1", "24.2"],
-      "plugin" : {
-        "internalName" : "DE.DANIELH.APEXSIGNATURE",
-        "type" : "region",
-        "demo" : "https://apex.oracle.com/pls/apex/f?p=APEXPLUGIN",
-        "previewImage" : "https://raw.githubusercontent.com/Maxwbh/apex-plugin-apexsignature/master/preview.gif"
+  "originalRepository": {
+    "type": "git",
+    "url": "https://github.com/Dani3lSun/apex-plugin-apexsignature.git"
+  },
+  "oracle": {
+    "versions": ["19c", "21c", "23ai"],
+    "apex": {
+      "versions": ["19.2", "20.1", "20.2", "21.1", "21.2", "22.1", "22.2", "23.1", "23.2", "24.1", "24.2"],
+      "plugin": {
+        "internalName": "DE.DANIELH.APEXSIGNATURE",
+        "type": "region",
+        "demo": "https://apex.oracle.com/pls/apex/f?p=APEXPLUGIN",
+        "previewImage": "https://raw.githubusercontent.com/Maxwbh/apex-plugin-apexsignature/master/preview.gif"
       }
     }
   },
-  "dependencies" : {
-    "signature_pad" : "5.0.4"
+  "modules": {
+    "core": {
+      "version": "3.8.0",
+      "files": ["apexsignature.js", "apexsignature.css"]
+    },
+    "multiInput": {
+      "version": "3.0.0",
+      "description": "Draw, Upload, Webcam capture modes",
+      "files": ["apexsignature.js"]
+    },
+    "docSign": {
+      "version": "3.1.0",
+      "description": "PDF document signing with drag-drop placement",
+      "files": ["apexsignature-docsign.js", "apexsignature-docsign.css"]
+    },
+    "templates": {
+      "version": "3.2.0",
+      "description": "Save and reuse signatures with localStorage",
+      "files": ["apexsignature-templates.js", "apexsignature-templates.css"]
+    },
+    "toolbar": {
+      "version": "3.3.0",
+      "description": "Enhanced customization toolbar",
+      "files": ["apexsignature-toolbar.js", "apexsignature-toolbar.css"]
+    },
+    "timestamp": {
+      "version": "3.4.0",
+      "description": "Date/time overlay with customizable formats",
+      "files": ["apexsignature-timestamp.js", "apexsignature-timestamp.css"]
+    },
+    "initials": {
+      "version": "3.5.0",
+      "description": "Compact initials/rubric mode",
+      "files": ["apexsignature-initials.js", "apexsignature-initials.css"]
+    },
+    "verification": {
+      "version": "3.6.0",
+      "description": "SHA-256 hash verification and tamper detection",
+      "files": ["apexsignature-verification.js", "apexsignature-verification.css"]
+    },
+    "mobile": {
+      "version": "3.7.0",
+      "description": "Touch gestures, fullscreen, stylus support",
+      "files": ["apexsignature-mobile.js", "apexsignature-mobile.css"]
+    },
+    "export": {
+      "version": "3.8.0",
+      "description": "Multi-format export (PNG, JPEG, SVG, PDF, WebP)",
+      "files": ["apexsignature-export.js", "apexsignature-export.css"]
+    }
+  },
+  "dependencies": {
+    "signature_pad": "5.0.4",
+    "pdf.js": "2.10.377",
+    "pdf-lib": "1.17.1",
+    "jspdf": "2.5.1"
+  },
+  "changelog": {
+    "3.8.0": "Export Formats Module - PNG, JPEG, SVG, PDF, WebP, Base64, Clipboard",
+    "3.7.0": "Mobile Optimization Module - Touch gestures, Fullscreen, Stylus support",
+    "3.6.0": "Signature Verification Module - SHA-256 hash, Tamper detection",
+    "3.5.0": "Initials Mode Module - Compact rubric/initials capture",
+    "3.4.0": "Timestamp Overlay Module - Customizable date/time formats",
+    "3.3.0": "Enhanced Toolbar Module - Color picker, Thickness slider, Undo/Redo",
+    "3.2.0": "Signature Templates Module - Save and reuse signatures",
+    "3.1.0": "Document Signing Module - PDF overlay with drag-drop",
+    "3.0.0": "Multi-Input Capture Module - Draw, Upload, Webcam modes",
+    "2.0.1": "Bug fixes for Dynamic Action events",
+    "2.0.0": "Updated signature_pad to v5.0.4, Pointer Events API",
+    "1.1.0": "Added WaitSpinner when saving",
+    "1.0.1": "Fixed charset issues",
+    "1.0.0": "Initial Release by Daniel Hochleitner"
   }
 }
