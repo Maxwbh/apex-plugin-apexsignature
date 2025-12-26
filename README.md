@@ -48,7 +48,7 @@ A versao 3.x traz grandes melhorias para compatibilidade com **Oracle 23ai** e *
 
 2. **Importe o Plugin** na sua aplicacao APEX:
    ```
-   Componentes Compartilhados > Plugins > Importar > region_type_plugin_de_danielh_apexsignature.sql
+   Componentes Compartilhados > Plugins > Importar > region_type_plugin_apexsignature.sql
    ```
 
 3. **Pronto!** O plugin esta pronto para uso.
