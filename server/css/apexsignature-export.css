@@ -1,0 +1,546 @@
+/**
+ * APEX Signature - Export Formats Module Styles
+ * Version: 3.8.0
+ *
+ * Styles for export button and menu components.
+ *
+ * @author Maxwell da Silva Oliveira
+ * @company M&S do Brasil LTDA
+ * @linkedin /maxwbh
+ */
+
+/* ========================================
+   CSS Variables
+   ======================================== */
+
+:root {
+    /* Export Button */
+    --apex-sig-export-btn-bg: #0066cc;
+    --apex-sig-export-btn-hover: #0052a3;
+    --apex-sig-export-btn-text: #ffffff;
+    --apex-sig-export-btn-radius: 6px;
+    --apex-sig-export-btn-padding: 8px 16px;
+
+    /* Export Menu */
+    --apex-sig-export-menu-bg: #ffffff;
+    --apex-sig-export-menu-border: #e5e7eb;
+    --apex-sig-export-menu-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --apex-sig-export-menu-radius: 8px;
+    --apex-sig-export-menu-item-hover: #f3f4f6;
+    --apex-sig-export-menu-text: #374151;
+
+    /* Animation */
+    --apex-sig-export-transition: all 0.2s ease;
+}
+
+/* ========================================
+   Export Container
+   ======================================== */
+
+.apex-sig-export-container {
+    position: relative;
+    display: inline-block;
+    margin-top: 8px;
+}
+
+/* ========================================
+   Export Button
+   ======================================== */
+
+.apex-sig-export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: var(--apex-sig-export-btn-padding);
+    background: var(--apex-sig-export-btn-bg);
+    color: var(--apex-sig-export-btn-text);
+    border: none;
+    border-radius: var(--apex-sig-export-btn-radius);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--apex-sig-export-transition);
+    font-family: inherit;
+}
+
+.apex-sig-export-btn:hover {
+    background: var(--apex-sig-export-btn-hover);
+}
+
+.apex-sig-export-btn:focus {
+    outline: 2px solid var(--apex-sig-export-btn-bg);
+    outline-offset: 2px;
+}
+
+.apex-sig-export-btn:active {
+    transform: scale(0.98);
+}
+
+.apex-sig-export-btn svg {
+    flex-shrink: 0;
+}
+
+/* ========================================
+   Export Menu (Dropdown)
+   ======================================== */
+
+.apex-sig-export-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    min-width: 200px;
+    background: var(--apex-sig-export-menu-bg);
+    border: 1px solid var(--apex-sig-export-menu-border);
+    border-radius: var(--apex-sig-export-menu-radius);
+    box-shadow: var(--apex-sig-export-menu-shadow);
+    z-index: 1000;
+    overflow: hidden;
+    animation: apex-sig-export-menu-in 0.15s ease-out;
+}
+
+@keyframes apex-sig-export-menu-in {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Menu Items */
+.apex-sig-export-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    color: var(--apex-sig-export-menu-text);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s;
+    font-family: inherit;
+}
+
+.apex-sig-export-menu-item:hover {
+    background: var(--apex-sig-export-menu-item-hover);
+}
+
+.apex-sig-export-menu-item:focus {
+    background: var(--apex-sig-export-menu-item-hover);
+    outline: none;
+}
+
+.apex-sig-export-menu-item--separator {
+    border-top: 1px solid var(--apex-sig-export-menu-border);
+    margin-top: 4px;
+    padding-top: 14px;
+}
+
+/* ========================================
+   Export Progress Indicator
+   ======================================== */
+
+.apex-sig-export-progress {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 10000;
+    font-size: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.apex-sig-export-progress__spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: apex-sig-export-spin 0.8s linear infinite;
+}
+
+@keyframes apex-sig-export-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   Export Success Toast
+   ======================================== */
+
+.apex-sig-export-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #10b981;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10000;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: apex-sig-export-toast-in 0.3s ease-out;
+}
+
+.apex-sig-export-toast--error {
+    background: #ef4444;
+}
+
+@keyframes apex-sig-export-toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.apex-sig-export-toast__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.apex-sig-export-toast__close {
+    margin-left: 8px;
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 4px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.apex-sig-export-toast__close:hover {
+    opacity: 1;
+}
+
+/* ========================================
+   Format Icons
+   ======================================== */
+
+.apex-sig-export-format-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.apex-sig-export-format-icon--png {
+    color: #10b981;
+}
+
+.apex-sig-export-format-icon--jpeg {
+    color: #f59e0b;
+}
+
+.apex-sig-export-format-icon--svg {
+    color: #6366f1;
+}
+
+.apex-sig-export-format-icon--pdf {
+    color: #ef4444;
+}
+
+.apex-sig-export-format-icon--webp {
+    color: #3b82f6;
+}
+
+/* ========================================
+   Export Options Panel
+   ======================================== */
+
+.apex-sig-export-options {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 12px;
+}
+
+.apex-sig-export-options__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 12px;
+}
+
+.apex-sig-export-options__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.apex-sig-export-option {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.apex-sig-export-option__label {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.apex-sig-export-option__input {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.apex-sig-export-option__input:focus {
+    outline: none;
+    border-color: var(--apex-sig-export-btn-bg);
+}
+
+.apex-sig-export-option__checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.apex-sig-export-option__checkbox input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* ========================================
+   Quality Slider
+   ======================================== */
+
+.apex-sig-export-quality {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.apex-sig-export-quality__slider {
+    flex: 1;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #e5e7eb;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.apex-sig-export-quality__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--apex-sig-export-btn-bg);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.apex-sig-export-quality__slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.apex-sig-export-quality__value {
+    min-width: 40px;
+    text-align: right;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+/* ========================================
+   Size Estimate
+   ======================================== */
+
+.apex-sig-export-size {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #f3f4f6;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 12px;
+}
+
+.apex-sig-export-size__icon {
+    width: 16px;
+    height: 16px;
+    color: #9ca3af;
+}
+
+.apex-sig-export-size__value {
+    font-weight: 500;
+    color: #374151;
+}
+
+/* ========================================
+   Dark Mode
+   ======================================== */
+
+.apex-sig-dark-mode .apex-sig-export-menu,
+[data-theme="dark"] .apex-sig-export-menu {
+    --apex-sig-export-menu-bg: #1f2937;
+    --apex-sig-export-menu-border: #374151;
+    --apex-sig-export-menu-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --apex-sig-export-menu-item-hover: #374151;
+    --apex-sig-export-menu-text: #f3f4f6;
+}
+
+.apex-sig-dark-mode .apex-sig-export-options,
+[data-theme="dark"] .apex-sig-export-options {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-export-options__title,
+[data-theme="dark"] .apex-sig-export-options__title {
+    color: #f3f4f6;
+}
+
+.apex-sig-dark-mode .apex-sig-export-option__label,
+[data-theme="dark"] .apex-sig-export-option__label {
+    color: #9ca3af;
+}
+
+.apex-sig-dark-mode .apex-sig-export-option__input,
+[data-theme="dark"] .apex-sig-export-option__input {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f3f4f6;
+}
+
+.apex-sig-dark-mode .apex-sig-export-quality__slider,
+[data-theme="dark"] .apex-sig-export-quality__slider {
+    background: #374151;
+}
+
+.apex-sig-dark-mode .apex-sig-export-quality__value,
+[data-theme="dark"] .apex-sig-export-quality__value {
+    color: #f3f4f6;
+}
+
+.apex-sig-dark-mode .apex-sig-export-size,
+[data-theme="dark"] .apex-sig-export-size {
+    background: #374151;
+    color: #9ca3af;
+}
+
+.apex-sig-dark-mode .apex-sig-export-size__value,
+[data-theme="dark"] .apex-sig-export-size__value {
+    color: #f3f4f6;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 480px) {
+    .apex-sig-export-menu {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        border-radius: 16px 16px 0 0;
+        min-width: auto;
+    }
+
+    .apex-sig-export-menu-item {
+        padding: 14px 20px;
+        font-size: 16px;
+    }
+
+    .apex-sig-export-options__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .apex-sig-export-toast {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+    }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+.apex-sig-export-btn:focus-visible,
+.apex-sig-export-menu-item:focus-visible {
+    outline: 2px solid var(--apex-sig-export-btn-bg);
+    outline-offset: 2px;
+}
+
+/* High contrast */
+@media (prefers-contrast: high) {
+    .apex-sig-export-btn {
+        border: 2px solid currentColor;
+    }
+
+    .apex-sig-export-menu {
+        border-width: 2px;
+    }
+
+    .apex-sig-export-menu-item:focus {
+        outline: 2px solid currentColor;
+        outline-offset: -2px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .apex-sig-export-menu,
+    .apex-sig-export-toast,
+    .apex-sig-export-progress__spinner {
+        animation: none;
+    }
+
+    .apex-sig-export-btn,
+    .apex-sig-export-menu-item,
+    .apex-sig-export-option__input {
+        transition: none;
+    }
+}
+
+/* ========================================
+   Print - Hide Export UI
+   ======================================== */
+
+@media print {
+    .apex-sig-export-container,
+    .apex-sig-export-menu,
+    .apex-sig-export-options,
+    .apex-sig-export-toast,
+    .apex-sig-export-progress {
+        display: none !important;
+    }
+}
