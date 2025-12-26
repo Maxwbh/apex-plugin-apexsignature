@@ -1,82 +1,288 @@
 ---
+# ====== APEX Signature v3.8.0 Static Files ========================
+# Updated for Oracle 23ai / APEX 24.2
+# Author: Maxwell da Silva Oliveira (@maxwbh) - M&S do Brasil LTDA
+# ================================================================
+
+# App Icons
 - # ====== Static Application File: icons/app-icon-32.png ======
   id: 79907075076899988
-  identification: 
+  identification:
     file-name: icons/app-icon-32.png
 
-  attributes: 
+  attributes:
     mime-type: image/png
     file-character-set: Unicode UTF-8
 
 - # ====== Static Application File: icons/app-icon-144-rounded.p
   id: 79907375492899991
-  identification: 
+  identification:
     file-name: icons/app-icon-144-rounded.png
 
-  attributes: 
+  attributes:
     mime-type: image/png
     file-character-set: Unicode UTF-8
 
 - # ====== Static Application File: icons/app-icon-192.png =====
   id: 79907600171899999
-  identification: 
+  identification:
     file-name: icons/app-icon-192.png
 
-  attributes: 
+  attributes:
     mime-type: image/png
     file-character-set: Unicode UTF-8
 
 - # ====== Static Application File: icons/app-icon-256-rounded.p
   id: 79907802567900001
-  identification: 
+  identification:
     file-name: icons/app-icon-256-rounded.png
 
-  attributes: 
+  attributes:
     mime-type: image/png
     file-character-set: Unicode UTF-8
 
 - # ====== Static Application File: icons/app-icon-512.png =====
   id: 79908196397900002
-  identification: 
+  identification:
     file-name: icons/app-icon-512.png
 
-  attributes: 
+  attributes:
     mime-type: image/png
     file-character-set: Unicode UTF-8
 
+# ================================================================
+# APEX Signature v3.8.0 - JavaScript Modules
+# ================================================================
+
+- # ====== Static Application File: js/signature_pad.js =========
+  id: 80200001000000001
+  identification:
+    file-name: js/signature_pad.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: js/signature_pad.min.js =====
+  id: 80200001000000002
+  identification:
+    file-name: js/signature_pad.min.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: js/apexsignature.js =========
+  id: 80200001000000003
+  identification:
+    file-name: js/apexsignature.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: js/apexsignature.min.js =====
+  id: 80200001000000004
+  identification:
+    file-name: js/apexsignature.min.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: js/apexsignature-docsign.js ==
+  id: 80200001000000005
+  identification:
+    file-name: js/apexsignature-docsign.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: js/apexsignature-templates.js
+  id: 80200001000000006
+  identification:
+    file-name: js/apexsignature-templates.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: js/apexsignature-toolbar.js ==
+  id: 80200001000000007
+  identification:
+    file-name: js/apexsignature-toolbar.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: js/apexsignature-timestamp.js
+  id: 80200001000000008
+  identification:
+    file-name: js/apexsignature-timestamp.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: js/apexsignature-initials.js =
+  id: 80200001000000009
+  identification:
+    file-name: js/apexsignature-initials.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: js/apexsignature-verification
+  id: 80200001000000010
+  identification:
+    file-name: js/apexsignature-verification.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: js/apexsignature-mobile.js ===
+  id: 80200001000000011
+  identification:
+    file-name: js/apexsignature-mobile.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: js/apexsignature-export.js ===
+  id: 80200001000000012
+  identification:
+    file-name: js/apexsignature-export.js
+
+  attributes:
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+# ================================================================
+# APEX Signature v3.8.0 - CSS Modules
+# ================================================================
+
+- # ====== Static Application File: css/apexsignature.css ========
+  id: 80200002000000001
+  identification:
+    file-name: css/apexsignature.css
+
+  attributes:
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: css/apexsignature-docsign.css
+  id: 80200002000000002
+  identification:
+    file-name: css/apexsignature-docsign.css
+
+  attributes:
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: css/apexsignature-templates.cs
+  id: 80200002000000003
+  identification:
+    file-name: css/apexsignature-templates.css
+
+  attributes:
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: css/apexsignature-toolbar.css
+  id: 80200002000000004
+  identification:
+    file-name: css/apexsignature-toolbar.css
+
+  attributes:
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: css/apexsignature-timestamp.cs
+  id: 80200002000000005
+  identification:
+    file-name: css/apexsignature-timestamp.css
+
+  attributes:
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: css/apexsignature-initials.css
+  id: 80200002000000006
+  identification:
+    file-name: css/apexsignature-initials.css
+
+  attributes:
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: css/apexsignature-verificatio
+  id: 80200002000000007
+  identification:
+    file-name: css/apexsignature-verification.css
+
+  attributes:
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: css/apexsignature-mobile.css =
+  id: 80200002000000008
+  identification:
+    file-name: css/apexsignature-mobile.css
+
+  attributes:
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: css/apexsignature-export.css =
+  id: 80200002000000009
+  identification:
+    file-name: css/apexsignature-export.css
+
+  attributes:
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
+# ================================================================
+# Legacy eSignDoc Files (kept for reference/migration)
+# ================================================================
+
 - # ====== Static Application File: eSignDoc_style.css =========
   id: 79922333826948746
-  identification: 
+  identification:
     file-name: eSignDoc_style.css
 
-  attributes: 
+  attributes:
     mime-type: text/css
     file-character-set: Unicode UTF-8
 
 - # ====== Static Application File: eSignDoc_script.js =========
   id: 79923392240955793
-  identification: 
+  identification:
     file-name: eSignDoc_script.js
 
-  attributes: 
+  attributes:
     mime-type: text/javascript
     file-character-set: Unicode UTF-8
 
 - # ====== Static Application File: eSignDoc_script.min.js =====
   id: 80038363681168365
-  identification: 
+  identification:
     file-name: eSignDoc_script.min.js
 
-  attributes: 
+  attributes:
     mime-type: text/javascript
     file-character-set: Unicode UTF-8
 
 - # ====== Static Application File: eSignDoc_style.min.css =====
   id: 80048862024226458
-  identification: 
+  identification:
     file-name: eSignDoc_style.min.css
 
-  attributes: 
+  attributes:
     mime-type: text/css
     file-character-set: Unicode UTF-8
-

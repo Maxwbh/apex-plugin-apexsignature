@@ -1,298 +1,661 @@
 ---
-- # ====== Plugin: eSignDoc ====================================
-  id: 79920272411927439
-  identification: 
-    name: eSignDoc
-    internal-name: ASSENTA,ISHAB.ESIGNDOC
-    type: Template Component
+# ====== Plugin: APEX Signature v3.8.0 ============================
+# APEX Signature - Modern signature capture plugin for Oracle APEX
+# Version: 3.8.0 - Updated for Oracle 23ai / APEX 24.2
+# Author: Maxwell da Silva Oliveira (@maxwbh) - M&S do Brasil LTDA
+# ================================================================
 
-  advanced: 
+- # ====== Plugin: APEX Signature ====================================
+  id: 79920272411927439
+  identification:
+    name: APEX Signature
+    internal-name: DE.DANIELH.APEXSIGNATURE
+    type: Region
+
+  advanced:
     quick-pick: false
 
-  subscription: 
+  subscription:
     version-number: 39535959170081
 
-  templates: 
-    available-as: 
-    - Single (Partial)
-    partial: |
-      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.0.1/docx.umd.min.js"></script>
-        
-      {if APEX$IS_LAZY_LOADING/}
-        <div></div>
-      {else/}
-        <div class="container">
-          <div class="header">
-            <h1><i class="fas fa-signature"></i> PDF Signature Tool</h1>
-          </div>
-          
-          <div class="main-content">
-            <div class="sidebar">
-              <div class="section">
-                <div class="tab-container">
-                  <div class="tab active" data-tab="draw">Draw</div>
-                  <div class="tab" data-tab="upload">Upload</div>
-                  <div class="tab" data-tab="camera">Camera</div>
-                </div>
-                
-                <div id="draw-tab" class="tab-content active">
-                  <canvas id="signature-pad" width="300" height="150"></canvas>
-                  <div class="btn-group">
-                    <button type="button" id="clear-signature" class="btn btn-outline btn-sm"><i class="fas fa-eraser"></i> Clear</button>
-                    <button type="button" id="prev-btn" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Preview</button>
-                  </div>
-                </div>
-                
-                <div id="upload-tab" class="tab-content">
-                  <input type="file" id="upload-signature" class="form-control" accept="image/*" />
-                  <div class="btn-group">
-                    <button type="button" id="upload-preview" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Preview</button>
-                  </div>
-                </div>
-                
-                <div id="camera-tab" class="tab-content">
-                  <video id="camera" autoplay hidden></video>
-                  <div class="btn-group">
-                    <button type="button" id="start-camera" class="btn btn-primary btn-sm"><i class="fas fa-camera"></i> Start Camera</button>
-                    <button type="button" id="capture-signature" class="btn btn-outline btn-sm" disabled><i class="fas fa-camera-retro"></i> Capture</button>
-                  </div>
-                  <canvas id="camera-canvas" width="300" height="150" hidden></canvas>
-                </div>
-              </div>
-      
-                
-      
-              
-              
-              <div class="section">
-                <h3 class="section-title">
-                  <span><i class="fas fa-palette"></i> Signature Preview</span>
-                </h3>
-                <img id="signature-preview" class="signature-preview" />
-                <div class="btn-group">
-                  <button type="button" id="save-sign" class="btn btn-outline btn-sm"><i class="fas fa-bookmark"></i> Save Sign</button>
-                  <button type="button" id="use-sign" class="btn btn-primary btn-sm" disabled><i class="fas fa-file-import"></i> Use This Sign</button>
-                </div>
-              </div>
-      
-              <div class="section" id="edit-section">
-                <div class="edit-toggle">
-                  <span class="edit-toggle-label">Edit Options</span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="toggle-edit">
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                
-                <div id="settings-panel" class="settings-panel">
-                  <div class="form-group">
-                    <label>Signature Thickness</label>
-                    <div class="range-slider">
-                      <input type="range" id="signature-thickness" min="1" max="10" value="2">
-                      <span id="thickness-value" class="range-value">2px</span>
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label>Signature Color</label>
-                    <div class="color-picker">
-                      <input type="color" id="signature-color" value="#000000">
-                      <span id="signature-color-value" class="color-value">#000000</span>
-                    </div>
-                  </div>
-                  
-                  <div class="btn-group">
-                    <button type="button" id="apply-style" class="btn btn-primary btn-sm"><i class="fas fa-check"></i> Apply</button>
-                    <button type="button" id="clear-style" class="btn btn-danger btn-sm"><i class="fas fa-broom"></i> Reset</button>
-                  </div>
-                </div>
-              </div>
-      
-              <div class="section" id="pdf-preview-toggle">
-                <div class="edit-toggle">
-                  <span><i class="fas fa-file-pdf"></i> PDF Preview</span>
-                    <label class="toggle-switch">
-                      <input type="checkbox" id="toggle-preview">
-                      <span class="slider"></span>
-                    </label>
-                </div>
-              </div>
-              
-            </div>
-            
-            <div class="pdf-viewer">
-              <div class="section" id="pdf-view">
-                <h3 class="section-title">
-                  <span><i class="fas fa-file-pdf"></i> PDF Preview</span>
-                </h3>
-                
-                <div class="pdf-upload-container" id="upload-pdf-container">
-                  <input type="file" id="upload-pdf" class="form-control" accept="application/pdf" />
-                </div>
-                
-                <div id="pdf-container">
-                  <canvas id="pdf-canvas"></canvas>
-                  <div id="draggable-signature-container">
-                    <img id="draggable-signature" />
-                    <div class="resize-handle resize-handle-top-left"></div>
-                    <div class="resize-handle resize-handle-top-right"></div>
-                    <div class="resize-handle resize-handle-bottom-left"></div>
-                    <div class="resize-handle resize-handle-bottom-right"></div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="section" id="output-sec">
-                <h3 class="section-title">
-                  <i class="fas fa-cog"></i> Output Settings
-                </h3>
-                <div class="form-group">
-                  <label>Save Format</label>
-                  <select id="save-format" class="form-control">
-                    <option value="pdf">PDF Document</option>
-                    <option value="jpeg">JPEG Image</option>
-                    <option value="png">PNG Image</option>
-                    <!-- <option value="docx">Word Document</option> -->
-                  </select>
-                </div>
-                
-                <div class="pdf-actions">
-                  <button type="button" id="save-pdf" class="btn btn-primary"><i class="fas fa-save"></i> Save PDF</button>
-                  <button type="button" id="download-pdf" class="btn btn-outline"><i class="fas fa-download"></i> Download</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div id="feedback" class="feedback-message">
-          <i class="fas fa-check-circle"></i>
-          <span class="feedback-text">Operation successful</span>
-        </div>
-      
-      
-        <div class="set-values" id="set-values" data-edit-toggle="#EDIT_TOGGLE#" data-doc-sign="#DOC_SIGN#"></div>
-      
-      
-      {endif/}
-    translate-templates: false
-    default-escape-mode: HTML
+  source:
+    plsql-code: |
+      -- APEX Signature Region Plugin v3.8.0
+      -- Render Function
+      FUNCTION render_apexsignature (
+          p_region              IN apex_plugin.t_region,
+          p_plugin              IN apex_plugin.t_plugin,
+          p_is_printer_friendly IN BOOLEAN)
+          RETURN apex_plugin.t_region_render_result
+      IS
+          l_result              apex_plugin.t_region_render_result;
+          l_region_id           VARCHAR2(100);
+          l_canvas_id           VARCHAR2(100);
+          l_canvas_width        NUMBER;
+          l_canvas_height       NUMBER;
+          l_line_width          NUMBER;
+          l_pen_color           VARCHAR2(50);
+          l_bg_color            VARCHAR2(50);
+          l_capture_mode        VARCHAR2(50);
+          l_show_toolbar        VARCHAR2(10);
+          l_show_clear_btn      VARCHAR2(10);
+          l_show_undo_btn       VARCHAR2(10);
+          l_show_color_picker   VARCHAR2(10);
+          l_show_thickness      VARCHAR2(10);
+          l_enable_docsign      VARCHAR2(10);
+          l_enable_templates    VARCHAR2(10);
+          l_enable_timestamp    VARCHAR2(10);
+          l_enable_initials     VARCHAR2(10);
+          l_enable_verification VARCHAR2(10);
+          l_enable_mobile       VARCHAR2(10);
+          l_enable_export       VARCHAR2(10);
+          l_js_code             VARCHAR2(32767);
+      BEGIN
+          -- Get region and canvas IDs
+          l_region_id := apex_escape.html_attribute(p_region.static_id);
+          IF l_region_id IS NULL THEN
+              l_region_id := 'R' || p_region.id;
+          END IF;
+          l_canvas_id := l_region_id || '_canvas';
 
-  callbacks: 
-    api-interface: Function
+          -- Get plugin attributes (with defaults)
+          l_canvas_width        := NVL(p_region.attribute_01, 400);
+          l_canvas_height       := NVL(p_region.attribute_02, 200);
+          l_line_width          := NVL(p_region.attribute_03, 2);
+          l_pen_color           := NVL(p_region.attribute_04, '#000000');
+          l_bg_color            := NVL(p_region.attribute_05, '#FFFFFF');
+          l_capture_mode        := NVL(p_region.attribute_06, 'draw');
+          l_show_toolbar        := NVL(p_region.attribute_07, 'Y');
+          l_show_clear_btn      := NVL(p_region.attribute_08, 'Y');
+          l_show_undo_btn       := NVL(p_region.attribute_09, 'Y');
+          l_show_color_picker   := NVL(p_region.attribute_10, 'Y');
+          l_show_thickness      := NVL(p_region.attribute_11, 'Y');
+          l_enable_docsign      := NVL(p_region.attribute_12, 'N');
+          l_enable_templates    := NVL(p_region.attribute_13, 'N');
+          l_enable_timestamp    := NVL(p_region.attribute_14, 'N');
+          l_enable_initials     := NVL(p_region.attribute_15, 'N');
+          l_enable_verification := NVL(p_region.attribute_16, 'N');
+          l_enable_mobile       := NVL(p_region.attribute_17, 'N');
+          l_enable_export       := NVL(p_region.attribute_18, 'Y');
 
-  custom-attributes: 
+          -- Render signature container
+          sys.htp.p('<div class="apex-sig-wrapper" id="' || l_region_id || '_wrapper">');
+
+          -- Multi-Input Capture Tabs (Draw, Upload, Webcam)
+          IF l_capture_mode IN ('all', 'tabs') THEN
+              sys.htp.p('<div class="apex-sig-tabs">');
+              sys.htp.p('  <button type="button" class="apex-sig-tab active" data-tab="draw">');
+              sys.htp.p('    <span class="apex-sig-tab-icon">✏️</span> Draw');
+              sys.htp.p('  </button>');
+              sys.htp.p('  <button type="button" class="apex-sig-tab" data-tab="upload">');
+              sys.htp.p('    <span class="apex-sig-tab-icon">📁</span> Upload');
+              sys.htp.p('  </button>');
+              sys.htp.p('  <button type="button" class="apex-sig-tab" data-tab="webcam">');
+              sys.htp.p('    <span class="apex-sig-tab-icon">📷</span> Webcam');
+              sys.htp.p('  </button>');
+              sys.htp.p('</div>');
+          END IF;
+
+          -- Canvas container
+          sys.htp.p('<div class="apex-sig-canvas-container" id="' || l_region_id || '_container">');
+          sys.htp.p('  <canvas id="' || l_canvas_id || '" ');
+          sys.htp.p('          width="' || l_canvas_width || '" ');
+          sys.htp.p('          height="' || l_canvas_height || '" ');
+          sys.htp.p('          style="background-color:' || l_bg_color || ';">');
+          sys.htp.p('  </canvas>');
+          sys.htp.p('</div>');
+
+          -- Toolbar (if enabled)
+          IF l_show_toolbar = 'Y' THEN
+              sys.htp.p('<div class="apex-sig-toolbar" id="' || l_region_id || '_toolbar">');
+
+              IF l_show_clear_btn = 'Y' THEN
+                  sys.htp.p('  <button type="button" class="apex-sig-btn apex-sig-btn-clear" title="Clear">');
+                  sys.htp.p('    <span class="apex-sig-btn-icon">🗑️</span> Clear');
+                  sys.htp.p('  </button>');
+              END IF;
+
+              IF l_show_undo_btn = 'Y' THEN
+                  sys.htp.p('  <button type="button" class="apex-sig-btn apex-sig-btn-undo" title="Undo">');
+                  sys.htp.p('    <span class="apex-sig-btn-icon">↩️</span> Undo');
+                  sys.htp.p('  </button>');
+              END IF;
+
+              IF l_show_color_picker = 'Y' THEN
+                  sys.htp.p('  <div class="apex-sig-color-control">');
+                  sys.htp.p('    <label>Color:</label>');
+                  sys.htp.p('    <input type="color" class="apex-sig-color-picker" value="' || l_pen_color || '">');
+                  sys.htp.p('  </div>');
+              END IF;
+
+              IF l_show_thickness = 'Y' THEN
+                  sys.htp.p('  <div class="apex-sig-thickness-control">');
+                  sys.htp.p('    <label>Size:</label>');
+                  sys.htp.p('    <input type="range" class="apex-sig-thickness-slider" min="1" max="10" value="' || l_line_width || '">');
+                  sys.htp.p('    <span class="apex-sig-thickness-value">' || l_line_width || 'px</span>');
+                  sys.htp.p('  </div>');
+              END IF;
+
+              sys.htp.p('</div>');
+          END IF;
+
+          sys.htp.p('</div>'); -- Close wrapper
+
+          -- Initialize JavaScript
+          l_js_code := 'apex.jQuery(function() {' || CHR(10) ||
+                       '  apexSignature.init("' || l_region_id || '", {' || CHR(10) ||
+                       '    canvasId: "' || l_canvas_id || '",' || CHR(10) ||
+                       '    width: ' || l_canvas_width || ',' || CHR(10) ||
+                       '    height: ' || l_canvas_height || ',' || CHR(10) ||
+                       '    lineWidth: ' || l_line_width || ',' || CHR(10) ||
+                       '    penColor: "' || l_pen_color || '",' || CHR(10) ||
+                       '    backgroundColor: "' || l_bg_color || '",' || CHR(10) ||
+                       '    captureMode: "' || l_capture_mode || '",' || CHR(10) ||
+                       '    showToolbar: ' || CASE WHEN l_show_toolbar = 'Y' THEN 'true' ELSE 'false' END || ',' || CHR(10) ||
+                       '    enableDocSign: ' || CASE WHEN l_enable_docsign = 'Y' THEN 'true' ELSE 'false' END || ',' || CHR(10) ||
+                       '    enableTemplates: ' || CASE WHEN l_enable_templates = 'Y' THEN 'true' ELSE 'false' END || ',' || CHR(10) ||
+                       '    enableTimestamp: ' || CASE WHEN l_enable_timestamp = 'Y' THEN 'true' ELSE 'false' END || ',' || CHR(10) ||
+                       '    enableInitials: ' || CASE WHEN l_enable_initials = 'Y' THEN 'true' ELSE 'false' END || ',' || CHR(10) ||
+                       '    enableVerification: ' || CASE WHEN l_enable_verification = 'Y' THEN 'true' ELSE 'false' END || ',' || CHR(10) ||
+                       '    enableMobile: ' || CASE WHEN l_enable_mobile = 'Y' THEN 'true' ELSE 'false' END || ',' || CHR(10) ||
+                       '    enableExport: ' || CASE WHEN l_enable_export = 'Y' THEN 'true' ELSE 'false' END || CHR(10) ||
+                       '  });' || CHR(10) ||
+                       '});';
+
+          apex_javascript.add_onload_code(p_code => l_js_code);
+
+          RETURN l_result;
+      END render_apexsignature;
+
+  callbacks:
+    render-function-name: render_apexsignature
+
+  custom-attributes:
     substitute-attribute-values: true
 
-  css: 
-    file-urls: 
-    - '#APP_FILES#eSignDoc_style.css'
-    - null
-    - null
-    - '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">'
-    - '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">'
+  css:
+    file-urls:
+    - '#APP_FILES#css/apexsignature.css'
+    - '#APP_FILES#css/apexsignature-docsign.css'
+    - '#APP_FILES#css/apexsignature-templates.css'
+    - '#APP_FILES#css/apexsignature-toolbar.css'
+    - '#APP_FILES#css/apexsignature-timestamp.css'
+    - '#APP_FILES#css/apexsignature-initials.css'
+    - '#APP_FILES#css/apexsignature-verification.css'
+    - '#APP_FILES#css/apexsignature-mobile.css'
+    - '#APP_FILES#css/apexsignature-export.css'
 
-  javascript: 
-    file-urls: 
-    - '<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>'
-    - '<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>'
-    - '<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.0.1/docx.umd.min.js"></script>'
-    - null
-    - '#APP_FILES#eSignDoc_script.js'
+  javascript:
+    file-urls:
+    - '#APP_FILES#js/signature_pad.min.js'
+    - '#APP_FILES#js/apexsignature.js'
+    - '#APP_FILES#js/apexsignature-docsign.js'
+    - '#APP_FILES#js/apexsignature-templates.js'
+    - '#APP_FILES#js/apexsignature-toolbar.js'
+    - '#APP_FILES#js/apexsignature-timestamp.js'
+    - '#APP_FILES#js/apexsignature-initials.js'
+    - '#APP_FILES#js/apexsignature-verification.js'
+    - '#APP_FILES#js/apexsignature-mobile.js'
+    - '#APP_FILES#js/apexsignature-export.js'
+    - 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js'
+    - 'https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js'
+    - 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
 
-  information: 
-    version: 1.0
+  information:
+    version: 3.8.0
 
-  custom-attributes: 
-  - # ====== Custom Attribute: Edit Toggle =======================
+  custom-attributes:
+  - # ====== Custom Attribute: Canvas Width ==========================
     id: 80044737259211741
-    identification: 
-      static-id: EDIT_TOGGLE
+    identification:
+      static-id: CANVAS_WIDTH
       attribute: 1
-      name: Edit Toggle
+      name: Canvas Width
       scope: Component
 
-    layout: 
+    layout:
       sequence: 10
 
-    settings: 
-      type: Select List
-      lov-type: Static
+    settings:
+      type: Number
       common: true
       show-in-wizard: true
       required: false
       translatable: false
-      escape-mode: HTML
 
-    default: 
-      value: 0
+    default:
+      value: 400
 
-    entries: 
-    - # ====== Entry: Yes ==========================================
-      id: 80045314756212491
-      entry: 
-        sequence: 10
-        display: Yes
-        return: 1
+    help:
+      text: Width of the signature canvas in pixels
 
-      advanced: 
-        quick-pick: false
-
-    - # ====== Entry: No ===========================================
-      id: 80045787304213231
-      entry: 
-        sequence: 20
-        display: No
-        return: 0
-
-      advanced: 
-        quick-pick: false
-
-  - # ====== Custom Attribute: Doc Sign ==========================
-    id: 80046383449215528
-    identification: 
-      static-id: DOC_SIGN
+  - # ====== Custom Attribute: Canvas Height =========================
+    id: 80044737259211742
+    identification:
+      static-id: CANVAS_HEIGHT
       attribute: 2
-      name: Doc Sign
+      name: Canvas Height
       scope: Component
 
-    layout: 
+    layout:
       sequence: 20
 
-    settings: 
+    settings:
+      type: Number
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 200
+
+    help:
+      text: Height of the signature canvas in pixels
+
+  - # ====== Custom Attribute: Line Width ============================
+    id: 80044737259211743
+    identification:
+      static-id: LINE_WIDTH
+      attribute: 3
+      name: Line Width
+      scope: Component
+
+    layout:
+      sequence: 30
+
+    settings:
+      type: Number
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 2
+
+    help:
+      text: Default stroke width for the signature pen (1-10)
+
+  - # ====== Custom Attribute: Pen Color =============================
+    id: 80044737259211744
+    identification:
+      static-id: PEN_COLOR
+      attribute: 4
+      name: Pen Color
+      scope: Component
+
+    layout:
+      sequence: 40
+
+    settings:
+      type: Text
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: '#000000'
+
+    help:
+      text: Default pen color in hex format (e.g., #000000)
+
+  - # ====== Custom Attribute: Background Color ======================
+    id: 80044737259211745
+    identification:
+      static-id: BG_COLOR
+      attribute: 5
+      name: Background Color
+      scope: Component
+
+    layout:
+      sequence: 50
+
+    settings:
+      type: Text
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: '#FFFFFF'
+
+    help:
+      text: Canvas background color in hex format
+
+  - # ====== Custom Attribute: Capture Mode ==========================
+    id: 80044737259211746
+    identification:
+      static-id: CAPTURE_MODE
+      attribute: 6
+      name: Capture Mode
+      scope: Component
+
+    layout:
+      sequence: 60
+
+    settings:
       type: Select List
       lov-type: Static
       common: true
       show-in-wizard: true
       required: false
       translatable: false
-      escape-mode: HTML
 
-    default: 
-      value: 0
+    default:
+      value: all
 
-    entries: 
-    - # ====== Entry: Yes ==========================================
-      id: 80046978296216334
-      entry: 
+    entries:
+    - # ====== Entry: Draw Only ======================================
+      id: 80044737259211746001
+      entry:
         sequence: 10
-        display: Yes
-        return: 1
+        display: Draw Only
+        return: draw
 
-      advanced: 
-        quick-pick: false
-
-    - # ====== Entry: No ===========================================
-      id: 80047585363217074
-      entry: 
+    - # ====== Entry: All Modes (Draw/Upload/Webcam) =================
+      id: 80044737259211746002
+      entry:
         sequence: 20
-        display: No
-        return: 0
+        display: All Modes (Draw/Upload/Webcam)
+        return: all
 
-      advanced: 
-        quick-pick: false
+    - # ====== Entry: Upload Only ====================================
+      id: 80044737259211746003
+      entry:
+        sequence: 30
+        display: Upload Only
+        return: upload
 
+    help:
+      text: Select signature capture modes to enable
+
+  - # ====== Custom Attribute: Show Toolbar ==========================
+    id: 80044737259211747
+    identification:
+      static-id: SHOW_TOOLBAR
+      attribute: 7
+      name: Show Toolbar
+      scope: Component
+
+    layout:
+      sequence: 70
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'Y'
+
+    help:
+      text: Show/hide the signature toolbar
+
+  - # ====== Custom Attribute: Show Clear Button =====================
+    id: 80044737259211748
+    identification:
+      static-id: SHOW_CLEAR_BTN
+      attribute: 8
+      name: Show Clear Button
+      scope: Component
+
+    layout:
+      sequence: 80
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'Y'
+
+    help:
+      text: Show/hide the clear button
+
+  - # ====== Custom Attribute: Show Undo Button ======================
+    id: 80044737259211749
+    identification:
+      static-id: SHOW_UNDO_BTN
+      attribute: 9
+      name: Show Undo Button
+      scope: Component
+
+    layout:
+      sequence: 90
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'Y'
+
+    help:
+      text: Show/hide the undo button
+
+  - # ====== Custom Attribute: Show Color Picker =====================
+    id: 80044737259211750
+    identification:
+      static-id: SHOW_COLOR_PICKER
+      attribute: 10
+      name: Show Color Picker
+      scope: Component
+
+    layout:
+      sequence: 100
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'Y'
+
+    help:
+      text: Show/hide the color picker
+
+  - # ====== Custom Attribute: Show Thickness Slider =================
+    id: 80044737259211751
+    identification:
+      static-id: SHOW_THICKNESS
+      attribute: 11
+      name: Show Thickness Slider
+      scope: Component
+
+    layout:
+      sequence: 110
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'Y'
+
+    help:
+      text: Show/hide the thickness slider
+
+  - # ====== Custom Attribute: Enable Document Signing ===============
+    id: 80044737259211752
+    identification:
+      static-id: ENABLE_DOCSIGN
+      attribute: 12
+      name: Enable Document Signing
+      scope: Component
+
+    layout:
+      sequence: 120
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'N'
+
+    help:
+      text: Enable PDF document signing with drag-drop signature placement
+
+  - # ====== Custom Attribute: Enable Signature Templates ============
+    id: 80044737259211753
+    identification:
+      static-id: ENABLE_TEMPLATES
+      attribute: 13
+      name: Enable Signature Templates
+      scope: Component
+
+    layout:
+      sequence: 130
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'N'
+
+    help:
+      text: Enable saved signature templates
+
+  - # ====== Custom Attribute: Enable Timestamp Overlay ==============
+    id: 80044737259211754
+    identification:
+      static-id: ENABLE_TIMESTAMP
+      attribute: 14
+      name: Enable Timestamp Overlay
+      scope: Component
+
+    layout:
+      sequence: 140
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'N'
+
+    help:
+      text: Add date/time overlay to signatures
+
+  - # ====== Custom Attribute: Enable Initials Mode ==================
+    id: 80044737259211755
+    identification:
+      static-id: ENABLE_INITIALS
+      attribute: 15
+      name: Enable Initials Mode
+      scope: Component
+
+    layout:
+      sequence: 150
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'N'
+
+    help:
+      text: Enable compact initials/rubric mode
+
+  - # ====== Custom Attribute: Enable Verification ===================
+    id: 80044737259211756
+    identification:
+      static-id: ENABLE_VERIFICATION
+      attribute: 16
+      name: Enable Verification
+      scope: Component
+
+    layout:
+      sequence: 160
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'N'
+
+    help:
+      text: Enable SHA-256 hash verification and tamper detection
+
+  - # ====== Custom Attribute: Enable Mobile Optimization ============
+    id: 80044737259211757
+    identification:
+      static-id: ENABLE_MOBILE
+      attribute: 17
+      name: Enable Mobile Optimization
+      scope: Component
+
+    layout:
+      sequence: 170
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'N'
+
+    help:
+      text: Enable touch gestures, fullscreen mode, and stylus support
+
+  - # ====== Custom Attribute: Enable Export ==========================
+    id: 80044737259211758
+    identification:
+      static-id: ENABLE_EXPORT
+      attribute: 18
+      name: Enable Export
+      scope: Component
+
+    layout:
+      sequence: 180
+
+    settings:
+      type: Yes No
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+
+    default:
+      value: 'Y'
+
+    help:
+      text: Enable multi-format export (PNG, JPEG, SVG, PDF, WebP)
