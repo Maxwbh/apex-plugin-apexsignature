@@ -1,0 +1,532 @@
+/**
+ * APEX Signature Plugin - Templates Styles
+ *
+ * @author Maxwell da Silva Oliveira - M&S do Brasil LTDA
+ * @version 3.2.0
+ * @license MIT
+ *
+ * Features:
+ * - Templates toolbar styling
+ * - Gallery modal with grid layout
+ * - Save/rename dialogs
+ * - Universal Theme integration
+ * - Dark mode support
+ *
+ * LinkedIn: /maxwbh
+ */
+
+/* ===================================================================
+   TEMPLATES TOOLBAR
+   =================================================================== */
+
+.apex-sig-templates-toolbar {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    margin-bottom: 8px;
+    background: var(--ut-component-background-color, #f8f9fa);
+    border: 1px solid var(--ut-component-border-color, #dee2e6);
+    border-radius: 4px;
+}
+
+/* Template buttons */
+.apex-sig-tpl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ut-palette-primary-alt, #1a73e8);
+    background: var(--ut-component-background-color, #ffffff);
+    border: 1px solid var(--ut-palette-primary-alt, #1a73e8);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-sig-tpl-btn:hover {
+    background: var(--ut-palette-primary-alt, #1a73e8);
+    color: #ffffff;
+}
+
+.apex-sig-tpl-btn:focus {
+    outline: 2px solid var(--ut-palette-primary-alt, #1a73e8);
+    outline-offset: 2px;
+}
+
+.apex-sig-tpl-btn .apex-sig-icon {
+    font-size: 16px;
+}
+
+/* Gallery button with badge */
+.apex-sig-tpl-gallery {
+    position: relative;
+}
+
+.apex-sig-tpl-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: center;
+    color: #ffffff;
+    background: var(--ut-palette-danger, #dc3545);
+    border-radius: 9px;
+}
+
+/* Primary button style */
+.apex-sig-tpl-primary {
+    background: var(--ut-palette-primary-alt, #1a73e8);
+    color: #ffffff;
+    border-color: var(--ut-palette-primary-alt, #1a73e8);
+}
+
+.apex-sig-tpl-primary:hover {
+    background: var(--ut-palette-primary, #0d47a1);
+    border-color: var(--ut-palette-primary, #0d47a1);
+}
+
+/* Danger button style */
+.apex-sig-tpl-danger {
+    color: var(--ut-palette-danger, #dc3545);
+    border-color: var(--ut-palette-danger, #dc3545);
+}
+
+.apex-sig-tpl-danger:hover {
+    background: var(--ut-palette-danger, #dc3545);
+    color: #ffffff;
+}
+
+/* ===================================================================
+   GALLERY MODAL
+   =================================================================== */
+
+.apex-sig-tpl-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.apex-sig-tpl-modal-content {
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--ut-component-background-color, #ffffff);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modal header */
+.apex-sig-tpl-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--ut-component-border-color, #dee2e6);
+}
+
+.apex-sig-tpl-modal-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ut-component-text-color, #212529);
+}
+
+.apex-sig-tpl-modal-close {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font-size: 24px;
+    line-height: 1;
+    color: var(--ut-component-text-muted-color, #6c757d);
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-sig-tpl-modal-close:hover {
+    color: var(--ut-palette-danger, #dc3545);
+    background: rgba(220, 53, 69, 0.1);
+}
+
+/* Gallery container */
+.apex-sig-tpl-gallery {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    align-content: start;
+}
+
+/* Empty state */
+.apex-sig-tpl-empty {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--ut-component-text-muted-color, #6c757d);
+}
+
+.apex-sig-tpl-empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.apex-sig-tpl-empty p {
+    margin: 0;
+    max-width: 300px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Modal footer */
+.apex-sig-tpl-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 20px;
+    border-top: 1px solid var(--ut-component-border-color, #dee2e6);
+    background: var(--ut-component-background-color, #f8f9fa);
+}
+
+/* ===================================================================
+   GALLERY ITEM
+   =================================================================== */
+
+.apex-sig-tpl-item {
+    display: flex;
+    flex-direction: column;
+    background: var(--ut-component-background-color, #ffffff);
+    border: 1px solid var(--ut-component-border-color, #dee2e6);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-sig-tpl-item:hover {
+    border-color: var(--ut-palette-primary-alt, #1a73e8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.apex-sig-tpl-item:focus {
+    outline: 2px solid var(--ut-palette-primary-alt, #1a73e8);
+    outline-offset: 2px;
+}
+
+/* Thumbnail */
+.apex-sig-tpl-thumb {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    border-bottom: 1px solid var(--ut-component-border-color, #dee2e6);
+    overflow: hidden;
+}
+
+.apex-sig-tpl-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Info section */
+.apex-sig-tpl-info {
+    padding: 10px 12px;
+    flex: 1;
+}
+
+.apex-sig-tpl-name {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ut-component-text-color, #212529);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.apex-sig-tpl-date {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    color: var(--ut-component-text-muted-color, #6c757d);
+}
+
+/* Actions */
+.apex-sig-tpl-actions {
+    display: flex;
+    border-top: 1px solid var(--ut-component-border-color, #dee2e6);
+}
+
+.apex-sig-tpl-action {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+    color: var(--ut-component-text-muted-color, #6c757d);
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--ut-component-border-color, #dee2e6);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-sig-tpl-action:last-child {
+    border-right: none;
+}
+
+.apex-sig-tpl-action:hover {
+    background: var(--ut-component-background-color, #f8f9fa);
+}
+
+.apex-sig-tpl-action.apex-sig-tpl-use:hover {
+    color: var(--ut-palette-success, #28a745);
+    background: rgba(40, 167, 69, 0.1);
+}
+
+.apex-sig-tpl-action.apex-sig-tpl-edit:hover {
+    color: var(--ut-palette-primary-alt, #1a73e8);
+    background: rgba(26, 115, 232, 0.1);
+}
+
+.apex-sig-tpl-action.apex-sig-tpl-delete:hover {
+    color: var(--ut-palette-danger, #dc3545);
+    background: rgba(220, 53, 69, 0.1);
+}
+
+/* ===================================================================
+   SAVE/RENAME DIALOG
+   =================================================================== */
+
+.apex-sig-tpl-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+.apex-sig-tpl-dialog-content {
+    width: 90%;
+    max-width: 400px;
+    padding: 24px;
+    background: var(--ut-component-background-color, #ffffff);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.apex-sig-tpl-dialog-content h4 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ut-component-text-color, #212529);
+}
+
+.apex-sig-tpl-form-group {
+    margin-bottom: 20px;
+}
+
+.apex-sig-tpl-form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ut-component-text-color, #212529);
+}
+
+.apex-sig-tpl-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: var(--ut-component-text-color, #212529);
+    background: var(--ut-component-background-color, #ffffff);
+    border: 1px solid var(--ut-component-border-color, #ced4da);
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.apex-sig-tpl-input:focus {
+    outline: none;
+    border-color: var(--ut-palette-primary-alt, #1a73e8);
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+}
+
+.apex-sig-tpl-dialog-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.apex-sig-tpl-cancel {
+    background: transparent;
+    color: var(--ut-component-text-muted-color, #6c757d);
+    border-color: var(--ut-component-border-color, #ced4da);
+}
+
+.apex-sig-tpl-cancel:hover {
+    background: var(--ut-component-background-color, #f8f9fa);
+    color: var(--ut-component-text-color, #212529);
+}
+
+/* ===================================================================
+   DARK MODE SUPPORT
+   =================================================================== */
+
+/* Dark mode via Universal Theme */
+body.js-darkModePage .apex-sig-templates-toolbar,
+body[data-theme="dark"] .apex-sig-templates-toolbar {
+    background: #2d3748;
+    border-color: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-tpl-thumb,
+body[data-theme="dark"] .apex-sig-tpl-thumb {
+    background: #2d3748;
+}
+
+body.js-darkModePage .apex-sig-tpl-empty,
+body[data-theme="dark"] .apex-sig-tpl-empty {
+    color: #a0aec0;
+}
+
+body.js-darkModePage .apex-sig-tpl-modal-content,
+body[data-theme="dark"] .apex-sig-tpl-modal-content {
+    background: #1a202c;
+}
+
+body.js-darkModePage .apex-sig-tpl-item,
+body[data-theme="dark"] .apex-sig-tpl-item {
+    background: #2d3748;
+    border-color: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-tpl-item:hover,
+body[data-theme="dark"] .apex-sig-tpl-item:hover {
+    border-color: #63b3ed;
+}
+
+body.js-darkModePage .apex-sig-tpl-dialog-content,
+body[data-theme="dark"] .apex-sig-tpl-dialog-content {
+    background: #1a202c;
+}
+
+body.js-darkModePage .apex-sig-tpl-input,
+body[data-theme="dark"] .apex-sig-tpl-input {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+/* ===================================================================
+   RESPONSIVE
+   =================================================================== */
+
+@media (max-width: 768px) {
+    .apex-sig-templates-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .apex-sig-tpl-btn {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+    }
+
+    .apex-sig-tpl-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .apex-sig-tpl-modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .apex-sig-tpl-thumb {
+        height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .apex-sig-tpl-gallery {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .apex-sig-tpl-dialog-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .apex-sig-tpl-dialog-actions {
+        flex-direction: column-reverse;
+    }
+
+    .apex-sig-tpl-dialog-actions .apex-sig-tpl-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ===================================================================
+   PRINT STYLES
+   =================================================================== */
+
+@media print {
+    .apex-sig-templates-toolbar,
+    .apex-sig-tpl-modal,
+    .apex-sig-tpl-dialog {
+        display: none !important;
+    }
+}

@@ -1,0 +1,572 @@
+/**
+ * APEX Signature Plugin - Document Signing Styles
+ * Version: 3.1.0
+ *
+ * @author Maxwell da Silva Oliveira - M&S do Brasil LTDA
+ * LinkedIn: /maxwbh
+ */
+
+/* =====================================================
+   Document Signing Wrapper
+   ===================================================== */
+.apex-docsign-wrapper {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--ut-component-border-color, #d0d0d0);
+    border-radius: 8px;
+    background: var(--ut-component-background-color, #fff);
+    overflow: hidden;
+    min-height: 500px;
+}
+
+/* =====================================================
+   Toolbar
+   ===================================================== */
+.apex-docsign-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--ut-component-background-color, #f5f5f5);
+    border-bottom: 1px solid var(--ut-component-border-color, #d0d0d0);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.apex-docsign-toolbar-left,
+.apex-docsign-toolbar-center,
+.apex-docsign-toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.apex-docsign-toolbar-center {
+    flex: 1;
+    justify-content: center;
+}
+
+.apex-docsign-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 1px solid var(--ut-component-border-color, #d0d0d0);
+    border-radius: 4px;
+    background: var(--ut-component-background-color, #fff);
+    color: var(--ut-component-text-color, #404040);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-docsign-btn:hover:not(:disabled) {
+    background: var(--ut-component-highlight-color, #e8e8e8);
+    border-color: var(--ut-component-border-color, #b0b0b0);
+}
+
+.apex-docsign-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.apex-docsign-btn-primary {
+    background: var(--ut-palette-primary, #0572ce);
+    border-color: var(--ut-palette-primary, #0572ce);
+    color: #fff;
+}
+
+.apex-docsign-btn-primary:hover:not(:disabled) {
+    background: var(--ut-palette-primary-shade, #045aa3);
+    border-color: var(--ut-palette-primary-shade, #045aa3);
+}
+
+.apex-docsign-icon {
+    font-size: 16px;
+}
+
+.apex-docsign-file-input {
+    display: none;
+}
+
+.apex-docsign-page-btn {
+    padding: 8px 12px;
+}
+
+.apex-docsign-page-info {
+    font-size: 13px;
+    color: var(--ut-component-text-muted-color, #606060);
+    min-width: 100px;
+    text-align: center;
+}
+
+/* =====================================================
+   Document Container
+   ===================================================== */
+.apex-docsign-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: var(--ut-body-background-color, #e8e8e8);
+    overflow: auto;
+}
+
+/* Empty State */
+.apex-docsign-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+}
+
+.apex-docsign-empty-icon {
+    font-size: 64px;
+    color: var(--ut-component-text-muted-color, #909090);
+    margin-bottom: 16px;
+}
+
+.apex-docsign-empty-text {
+    font-size: 16px;
+    color: var(--ut-component-text-muted-color, #606060);
+    margin-bottom: 24px;
+}
+
+.apex-docsign-upload-btn {
+    font-size: 14px;
+}
+
+/* Document Viewer */
+.apex-docsign-viewer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.apex-docsign-page-wrapper {
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    background: #fff;
+}
+
+.apex-docsign-canvas {
+    display: block;
+}
+
+/* Signatures Layer */
+.apex-docsign-signatures-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.apex-docsign-signature {
+    position: absolute;
+    pointer-events: auto;
+    cursor: move;
+    border: 2px dashed transparent;
+    transition: border-color 0.2s ease;
+}
+
+.apex-docsign-signature:hover,
+.apex-docsign-signature.selected {
+    border-color: var(--ut-palette-primary, #0572ce);
+}
+
+.apex-docsign-signature img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.apex-docsign-resize-handle {
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    width: 12px;
+    height: 12px;
+    background: var(--ut-palette-primary, #0572ce);
+    border: 2px solid #fff;
+    border-radius: 2px;
+    cursor: se-resize;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.apex-docsign-signature:hover .apex-docsign-resize-handle,
+.apex-docsign-signature.selected .apex-docsign-resize-handle {
+    opacity: 1;
+}
+
+.apex-docsign-delete-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    background: #dc3545;
+    color: #fff;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.apex-docsign-signature:hover .apex-docsign-delete-btn,
+.apex-docsign-signature.selected .apex-docsign-delete-btn {
+    opacity: 1;
+}
+
+.apex-docsign-delete-btn:hover {
+    background: #c82333;
+}
+
+/* =====================================================
+   Signature Modal
+   ===================================================== */
+.apex-docsign-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.apex-docsign-modal-content {
+    background: var(--ut-component-background-color, #fff);
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.apex-docsign-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--ut-component-border-color, #d0d0d0);
+}
+
+.apex-docsign-modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ut-component-text-title-color, #202020);
+}
+
+.apex-docsign-modal-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    color: var(--ut-component-text-muted-color, #606060);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.apex-docsign-modal-close:hover {
+    background: var(--ut-component-highlight-color, #f0f0f0);
+    color: var(--ut-component-text-color, #404040);
+}
+
+.apex-docsign-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.apex-docsign-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--ut-component-border-color, #d0d0d0);
+}
+
+/* Signature Tabs */
+.apex-docsign-sig-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--ut-component-border-color, #d0d0d0);
+    margin-bottom: 16px;
+}
+
+.apex-docsign-sig-tab {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    color: var(--ut-component-text-color, #404040);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.apex-docsign-sig-tab:hover {
+    background: var(--ut-component-highlight-color, #f0f0f0);
+}
+
+.apex-docsign-sig-tab.active {
+    color: var(--ut-palette-primary, #0572ce);
+    border-bottom: 2px solid var(--ut-palette-primary, #0572ce);
+    margin-bottom: -1px;
+}
+
+/* Signature Panels */
+.apex-docsign-sig-panels {
+    min-height: 250px;
+}
+
+.apex-docsign-sig-panel {
+    display: none;
+}
+
+.apex-docsign-sig-panel.active {
+    display: block;
+}
+
+/* Draw Panel */
+.apex-docsign-sig-panel[data-panel="draw"] canvas {
+    width: 100%;
+    height: 200px;
+    border: 1px solid var(--ut-component-border-color, #d0d0d0);
+    border-radius: 4px;
+    background: #fff;
+    cursor: crosshair;
+}
+
+.apex-docsign-sig-actions {
+    margin-top: 12px;
+    text-align: right;
+}
+
+/* Type Panel */
+.apex-docsign-type-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid var(--ut-component-border-color, #d0d0d0);
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.apex-docsign-type-input:focus {
+    outline: none;
+    border-color: var(--ut-palette-primary, #0572ce);
+    box-shadow: 0 0 0 3px rgba(5, 114, 206, 0.1);
+}
+
+.apex-docsign-font-select {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.apex-docsign-font-select label {
+    font-size: 13px;
+    color: var(--ut-component-text-muted-color, #606060);
+}
+
+.apex-docsign-select {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid var(--ut-component-border-color, #d0d0d0);
+    border-radius: 4px;
+    background: #fff;
+}
+
+.apex-docsign-type-preview {
+    padding: 24px;
+    text-align: center;
+    font-size: 32px;
+    border: 1px dashed var(--ut-component-border-color, #d0d0d0);
+    border-radius: 4px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ut-component-text-color, #404040);
+}
+
+/* Upload Panel */
+.apex-docsign-sig-panel[data-panel="upload"] .apex-docsign-upload-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border: 2px dashed var(--ut-component-border-color, #d0d0d0);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-docsign-sig-panel[data-panel="upload"] .apex-docsign-upload-zone:hover,
+.apex-docsign-sig-panel[data-panel="upload"] .apex-docsign-upload-zone.dragover {
+    border-color: var(--ut-palette-primary, #0572ce);
+    background: rgba(5, 114, 206, 0.05);
+}
+
+.apex-docsign-sig-panel[data-panel="upload"] .apex-docsign-upload-zone .apex-docsign-icon {
+    font-size: 36px;
+    color: var(--ut-component-text-muted-color, #909090);
+    margin-bottom: 12px;
+}
+
+.apex-docsign-sig-panel[data-panel="upload"] .apex-docsign-upload-zone p {
+    margin: 0;
+    color: var(--ut-component-text-muted-color, #606060);
+    font-size: 13px;
+}
+
+.apex-docsign-sig-panel[data-panel="upload"] .apex-docsign-upload-zone input {
+    display: none;
+}
+
+.apex-docsign-upload-preview {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid var(--ut-component-border-color, #d0d0d0);
+    border-radius: 8px;
+    min-height: 150px;
+}
+
+.apex-docsign-upload-preview img {
+    max-width: 100%;
+    max-height: 150px;
+}
+
+.apex-docsign-remove-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.apex-docsign-remove-btn:hover {
+    background: #dc3545;
+}
+
+/* =====================================================
+   Responsive
+   ===================================================== */
+@media (max-width: 768px) {
+    .apex-docsign-toolbar {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .apex-docsign-toolbar-left,
+    .apex-docsign-toolbar-center,
+    .apex-docsign-toolbar-right {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .apex-docsign-btn-text {
+        display: none;
+    }
+
+    .apex-docsign-modal-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+}
+
+/* =====================================================
+   Dark Mode
+   ===================================================== */
+.t-PageBody--dark .apex-docsign-wrapper,
+[data-theme-style="dark"] .apex-docsign-wrapper {
+    background: var(--ut-component-background-color, #1a1a1a);
+    border-color: var(--ut-component-border-color, #404040);
+}
+
+.t-PageBody--dark .apex-docsign-toolbar,
+[data-theme-style="dark"] .apex-docsign-toolbar {
+    background: var(--ut-component-background-color, #252525);
+}
+
+.t-PageBody--dark .apex-docsign-container,
+[data-theme-style="dark"] .apex-docsign-container {
+    background: var(--ut-body-background-color, #1a1a1a);
+}
+
+.t-PageBody--dark .apex-docsign-modal-content,
+[data-theme-style="dark"] .apex-docsign-modal-content {
+    background: var(--ut-component-background-color, #252525);
+}
+
+.t-PageBody--dark .apex-docsign-type-input,
+.t-PageBody--dark .apex-docsign-select,
+[data-theme-style="dark"] .apex-docsign-type-input,
+[data-theme-style="dark"] .apex-docsign-select {
+    background: var(--ut-field-background-color, #1a1a1a);
+    color: var(--ut-component-text-color, #e0e0e0);
+}
+
+/* =====================================================
+   Accessibility
+   ===================================================== */
+.apex-docsign-btn:focus,
+.apex-docsign-sig-tab:focus,
+.apex-docsign-modal-close:focus {
+    outline: 2px solid var(--ut-palette-primary, #0572ce);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .apex-docsign-btn,
+    .apex-docsign-sig-tab,
+    .apex-docsign-signature,
+    .apex-docsign-resize-handle,
+    .apex-docsign-delete-btn {
+        transition: none;
+    }
+}

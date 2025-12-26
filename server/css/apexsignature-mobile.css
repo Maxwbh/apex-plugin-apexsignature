@@ -1,0 +1,622 @@
+/**
+ * APEX Signature - Mobile Optimization Styles
+ * Version: 3.7.0
+ *
+ * Styles for mobile-optimized signature capture.
+ *
+ * @author Maxwell da Silva Oliveira
+ * @company M&S do Brasil LTDA
+ * @linkedin /maxwbh
+ */
+
+/* ========================================
+   CSS Variables
+   ======================================== */
+
+:root {
+    /* Touch targets */
+    --apex-sig-mobile-touch-min-size: 44px;
+    --apex-sig-mobile-touch-spacing: 8px;
+
+    /* Fullscreen */
+    --apex-sig-mobile-fullscreen-bg: rgba(0, 0, 0, 0.95);
+    --apex-sig-mobile-fullscreen-header-height: 56px;
+    --apex-sig-mobile-fullscreen-footer-height: 80px;
+
+    /* Colors */
+    --apex-sig-mobile-primary: #0066cc;
+    --apex-sig-mobile-danger: #dc3545;
+    --apex-sig-mobile-success: #28a745;
+    --apex-sig-mobile-text: #ffffff;
+    --apex-sig-mobile-text-muted: rgba(255, 255, 255, 0.7);
+
+    /* Animation */
+    --apex-sig-mobile-transition: all 0.3s ease;
+}
+
+/* ========================================
+   Base Mobile Styles
+   ======================================== */
+
+.apex-sig-mobile-enabled {
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.apex-sig-mobile-device .apex-sig-wrapper,
+.apex-sig-tablet-device .apex-sig-wrapper {
+    width: 100%;
+    max-width: 100%;
+}
+
+.apex-sig-mobile-device canvas,
+.apex-sig-tablet-device canvas {
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ========================================
+   Touch Target Optimization
+   ======================================== */
+
+.apex-sig-mobile-touch-optimized .apex-sig-mobile-touch-target,
+.apex-sig-mobile-touch-optimized button,
+.apex-sig-mobile-touch-optimized [role="button"] {
+    min-width: var(--apex-sig-mobile-touch-min-size);
+    min-height: var(--apex-sig-mobile-touch-min-size);
+    padding: 12px 16px;
+    margin: var(--apex-sig-mobile-touch-spacing);
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.apex-sig-mobile-touch-optimized .apex-sig-btn-clear,
+.apex-sig-mobile-touch-optimized .apex-sig-btn-undo {
+    padding: 14px 20px;
+}
+
+/* ========================================
+   Fullscreen Overlay
+   ======================================== */
+
+.apex-sig-mobile-fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--apex-sig-mobile-fullscreen-bg);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--apex-sig-mobile-transition);
+}
+
+.apex-sig-mobile-fullscreen-overlay--visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Fullscreen Container */
+.apex-sig-mobile-fullscreen-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+/* Fullscreen Header */
+.apex-sig-mobile-fullscreen-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--apex-sig-mobile-fullscreen-header-height);
+    padding: 0 16px;
+    background: rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+}
+
+.apex-sig-mobile-fullscreen-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--apex-sig-mobile-text);
+}
+
+.apex-sig-mobile-fullscreen-close {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--apex-sig-mobile-text);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.apex-sig-mobile-fullscreen-close:hover,
+.apex-sig-mobile-fullscreen-close:active {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Fullscreen Signature Area */
+.apex-sig-mobile-fullscreen-signature {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    overflow: hidden;
+}
+
+.apex-sig-mobile-fullscreen-canvas {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - var(--apex-sig-mobile-fullscreen-header-height) - var(--apex-sig-mobile-fullscreen-footer-height) - 32px);
+    touch-action: none;
+}
+
+/* Fullscreen Footer */
+.apex-sig-mobile-fullscreen-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    height: var(--apex-sig-mobile-fullscreen-footer-height);
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+}
+
+/* Fullscreen Buttons */
+.apex-sig-mobile-btn {
+    min-width: 120px;
+    min-height: 48px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: var(--apex-sig-mobile-transition);
+    touch-action: manipulation;
+}
+
+.apex-sig-mobile-btn-clear {
+    background: transparent;
+    color: var(--apex-sig-mobile-text);
+    border: 2px solid var(--apex-sig-mobile-text-muted);
+}
+
+.apex-sig-mobile-btn-clear:hover,
+.apex-sig-mobile-btn-clear:active {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--apex-sig-mobile-text);
+}
+
+.apex-sig-mobile-btn-confirm {
+    background: var(--apex-sig-mobile-success);
+    color: var(--apex-sig-mobile-text);
+}
+
+.apex-sig-mobile-btn-confirm:hover,
+.apex-sig-mobile-btn-confirm:active {
+    background: #218838;
+    transform: scale(1.02);
+}
+
+/* ========================================
+   Orientation Prompt
+   ======================================== */
+
+.apex-sig-mobile-orientation-prompt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: apex-sig-mobile-fade-in 0.3s ease;
+}
+
+.apex-sig-mobile-orientation-prompt--hiding {
+    animation: apex-sig-mobile-fade-out 0.3s ease forwards;
+}
+
+.apex-sig-mobile-orientation-prompt-content {
+    text-align: center;
+    color: #ffffff;
+    padding: 24px;
+}
+
+.apex-sig-mobile-orientation-icon {
+    display: block;
+    margin: 0 auto 16px;
+    animation: apex-sig-mobile-rotate 2s ease-in-out infinite;
+}
+
+.apex-sig-mobile-orientation-prompt p {
+    font-size: 16px;
+    margin: 0 0 20px;
+    line-height: 1.5;
+}
+
+.apex-sig-mobile-orientation-dismiss {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.apex-sig-mobile-orientation-dismiss:hover,
+.apex-sig-mobile-orientation-dismiss:active {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ========================================
+   Zoom Indicator
+   ======================================== */
+
+.apex-sig-mobile-zoom-indicator {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 50;
+}
+
+.apex-sig-mobile-zoom-indicator--visible {
+    opacity: 1;
+}
+
+/* ========================================
+   Gesture Feedback
+   ======================================== */
+
+.apex-sig-mobile-gesture-feedback {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none;
+    opacity: 0;
+    animation: apex-sig-mobile-gesture-show 0.8s ease forwards;
+    z-index: 100;
+}
+
+.apex-sig-mobile-gesture-feedback svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+@keyframes apex-sig-mobile-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes apex-sig-mobile-fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes apex-sig-mobile-rotate {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-15deg);
+    }
+    75% {
+        transform: rotate(15deg);
+    }
+}
+
+@keyframes apex-sig-mobile-gesture-show {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    80% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
+/* ========================================
+   Responsive - Mobile Portrait
+   ======================================== */
+
+@media (max-width: 480px) and (orientation: portrait) {
+    .apex-sig-mobile-device .apex-sig-wrapper {
+        min-height: 150px;
+    }
+
+    .apex-sig-mobile-device canvas {
+        height: 150px;
+    }
+
+    .apex-sig-mobile-fullscreen-signature {
+        padding: 8px;
+    }
+
+    .apex-sig-mobile-fullscreen-footer {
+        flex-direction: column;
+        height: auto;
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .apex-sig-mobile-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+/* ========================================
+   Responsive - Mobile Landscape
+   ======================================== */
+
+@media (max-width: 896px) and (orientation: landscape) {
+    .apex-sig-mobile-fullscreen-header {
+        height: 44px;
+        padding: 0 12px;
+    }
+
+    .apex-sig-mobile-fullscreen-title {
+        font-size: 16px;
+    }
+
+    .apex-sig-mobile-fullscreen-footer {
+        height: 60px;
+        padding: 10px;
+    }
+
+    .apex-sig-mobile-btn {
+        min-height: 40px;
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+
+    .apex-sig-mobile-orientation-prompt {
+        display: none;
+    }
+}
+
+/* ========================================
+   Responsive - Tablet
+   ======================================== */
+
+@media (min-width: 481px) and (max-width: 1024px) {
+    .apex-sig-tablet-device .apex-sig-wrapper {
+        min-height: 200px;
+    }
+
+    .apex-sig-mobile-fullscreen-canvas {
+        max-width: calc(100vw - 64px);
+    }
+
+    .apex-sig-mobile-btn {
+        min-width: 150px;
+    }
+}
+
+/* ========================================
+   Dark Mode
+   ======================================== */
+
+.apex-sig-dark-mode .apex-sig-mobile-fullscreen-overlay,
+[data-theme="dark"] .apex-sig-mobile-fullscreen-overlay {
+    --apex-sig-mobile-fullscreen-bg: rgba(0, 0, 0, 0.98);
+}
+
+.apex-sig-dark-mode .apex-sig-mobile-fullscreen-canvas,
+[data-theme="dark"] .apex-sig-mobile-fullscreen-canvas {
+    background: #1a1a1a;
+}
+
+.apex-sig-dark-mode .apex-sig-mobile-orientation-prompt,
+[data-theme="dark"] .apex-sig-mobile-orientation-prompt {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+/* Focus states for touch targets */
+.apex-sig-mobile-touch-target:focus,
+.apex-sig-mobile-btn:focus,
+.apex-sig-mobile-fullscreen-close:focus {
+    outline: 2px solid var(--apex-sig-mobile-primary);
+    outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .apex-sig-mobile-fullscreen-overlay {
+        background: #000000;
+    }
+
+    .apex-sig-mobile-fullscreen-canvas {
+        border: 3px solid #ffffff;
+    }
+
+    .apex-sig-mobile-btn {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .apex-sig-mobile-fullscreen-overlay,
+    .apex-sig-mobile-orientation-prompt,
+    .apex-sig-mobile-gesture-feedback,
+    .apex-sig-mobile-btn,
+    .apex-sig-mobile-orientation-icon {
+        animation: none;
+        transition: none;
+    }
+}
+
+/* ========================================
+   Stylus / Pen Specific
+   ======================================== */
+
+/* Visual feedback when using stylus */
+.apex-sig-mobile-stylus-active canvas {
+    cursor: crosshair;
+}
+
+.apex-sig-mobile-stylus-active .apex-sig-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background: var(--apex-sig-mobile-success);
+    border-radius: 50%;
+    box-shadow: 0 0 4px var(--apex-sig-mobile-success);
+}
+
+/* ========================================
+   Hint Overlays
+   ======================================== */
+
+.apex-sig-mobile-hint {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0.8;
+    z-index: 50;
+}
+
+.apex-sig-mobile-hint--gesture {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.apex-sig-mobile-hint svg {
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
+}
+
+/* Show hint only on first visit */
+.apex-sig-mobile-hint--first-time {
+    animation: apex-sig-mobile-hint-pulse 2s ease-in-out 3;
+}
+
+@keyframes apex-sig-mobile-hint-pulse {
+    0%, 100% {
+        opacity: 0.8;
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.05);
+    }
+}
+
+/* ========================================
+   Safe Area (Notch Support)
+   ======================================== */
+
+@supports (padding: env(safe-area-inset-top)) {
+    .apex-sig-mobile-fullscreen-overlay {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+
+    .apex-sig-mobile-fullscreen-header {
+        padding-top: env(safe-area-inset-top);
+    }
+
+    .apex-sig-mobile-fullscreen-footer {
+        padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    }
+}
+
+/* ========================================
+   Print - Hide Mobile Elements
+   ======================================== */
+
+@media print {
+    .apex-sig-mobile-fullscreen-overlay,
+    .apex-sig-mobile-orientation-prompt,
+    .apex-sig-mobile-gesture-feedback,
+    .apex-sig-mobile-zoom-indicator,
+    .apex-sig-mobile-hint {
+        display: none !important;
+    }
+}

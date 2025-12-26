@@ -1,0 +1,473 @@
+/**
+ * APEX Signature Plugin - Initials Mode Styles
+ *
+ * @author Maxwell da Silva Oliveira - M&S do Brasil LTDA
+ * @version 3.5.0
+ * @license MIT
+ *
+ * Features:
+ * - Compact initials component styling
+ * - Draw and Type mode tabs
+ * - Font selector for typed initials
+ * - Preview canvas styling
+ * - Validation messages
+ * - Universal Theme integration
+ * - Dark mode support
+ *
+ * LinkedIn: /maxwbh
+ */
+
+/* ===================================================================
+   INITIALS WRAPPER
+   =================================================================== */
+
+.apex-sig-initials-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    max-width: 250px;
+    background: var(--ut-component-background-color, #ffffff);
+    border: 1px solid var(--ut-component-border-color, #dee2e6);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* ===================================================================
+   HEADER
+   =================================================================== */
+
+.apex-sig-initials-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: var(--ut-component-background-color, #f8f9fa);
+    border-bottom: 1px solid var(--ut-component-border-color, #dee2e6);
+}
+
+.apex-sig-initials-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ut-component-text-color, #212529);
+}
+
+/* Mode tabs */
+.apex-sig-initials-tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.apex-sig-initials-tab {
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ut-component-text-muted-color, #6c757d);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-sig-initials-tab:hover {
+    color: var(--ut-palette-primary-alt, #1a73e8);
+    background: rgba(26, 115, 232, 0.05);
+}
+
+.apex-sig-initials-tab.active {
+    color: var(--ut-palette-primary-alt, #1a73e8);
+    background: rgba(26, 115, 232, 0.1);
+    border-color: var(--ut-palette-primary-alt, #1a73e8);
+}
+
+.apex-sig-initials-tab .apex-sig-icon {
+    font-size: 11px;
+}
+
+/* ===================================================================
+   PANELS
+   =================================================================== */
+
+.apex-sig-initials-panels {
+    position: relative;
+}
+
+.apex-sig-initials-panel {
+    display: none;
+    padding: 12px;
+}
+
+.apex-sig-initials-panel.active {
+    display: block;
+}
+
+/* ===================================================================
+   DRAW MODE
+   =================================================================== */
+
+.apex-sig-initials-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--ut-component-border-color, #dee2e6);
+    border-radius: 4px;
+    background: #ffffff;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.apex-sig-initials-canvas:focus {
+    outline: 2px solid var(--ut-palette-primary-alt, #1a73e8);
+    outline-offset: 2px;
+}
+
+/* ===================================================================
+   TYPE MODE
+   =================================================================== */
+
+.apex-sig-initials-input-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.apex-sig-initials-input {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--ut-component-text-color, #212529);
+    background: var(--ut-component-background-color, #ffffff);
+    border: 1px solid var(--ut-component-border-color, #ced4da);
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+}
+
+.apex-sig-initials-input:focus {
+    outline: none;
+    border-color: var(--ut-palette-primary-alt, #1a73e8);
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+}
+
+.apex-sig-initials-input::placeholder {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ut-component-text-muted-color, #adb5bd);
+}
+
+.apex-sig-initials-auto-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    font-size: 16px;
+    color: var(--ut-palette-warning, #ffc107);
+    background: var(--ut-component-background-color, #ffffff);
+    border: 1px solid var(--ut-component-border-color, #ced4da);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-sig-initials-auto-btn:hover {
+    background: var(--ut-palette-warning, #ffc107);
+    color: #212529;
+    border-color: var(--ut-palette-warning, #ffc107);
+}
+
+/* Font selector */
+.apex-sig-initials-font-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.apex-sig-initials-font-group label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ut-component-text-muted-color, #6c757d);
+    white-space: nowrap;
+}
+
+.apex-sig-initials-font-select {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 12px;
+    color: var(--ut-component-text-color, #495057);
+    background: var(--ut-component-background-color, #ffffff);
+    border: 1px solid var(--ut-component-border-color, #ced4da);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.apex-sig-initials-font-select:focus {
+    outline: 2px solid var(--ut-palette-primary-alt, #1a73e8);
+    outline-offset: 2px;
+}
+
+/* Preview */
+.apex-sig-initials-preview {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    background: #f8f9fa;
+    border: 1px solid var(--ut-component-border-color, #dee2e6);
+    border-radius: 4px;
+}
+
+.apex-sig-initials-preview-canvas {
+    display: block;
+    border: 1px solid var(--ut-component-border-color, #dee2e6);
+    border-radius: 4px;
+    background: #ffffff;
+}
+
+/* ===================================================================
+   FOOTER
+   =================================================================== */
+
+.apex-sig-initials-footer {
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--ut-component-background-color, #f8f9fa);
+    border-top: 1px solid var(--ut-component-border-color, #dee2e6);
+}
+
+.apex-sig-initials-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-sig-initials-clear {
+    color: var(--ut-component-text-color, #495057);
+    background: var(--ut-component-background-color, #ffffff);
+    border: 1px solid var(--ut-component-border-color, #ced4da);
+}
+
+.apex-sig-initials-clear:hover {
+    color: var(--ut-palette-danger, #dc3545);
+    border-color: var(--ut-palette-danger, #dc3545);
+    background: rgba(220, 53, 69, 0.05);
+}
+
+.apex-sig-initials-confirm {
+    color: #ffffff;
+    background: var(--ut-palette-primary-alt, #1a73e8);
+    border: 1px solid var(--ut-palette-primary-alt, #1a73e8);
+}
+
+.apex-sig-initials-confirm:hover {
+    background: var(--ut-palette-primary, #0d47a1);
+    border-color: var(--ut-palette-primary, #0d47a1);
+}
+
+.apex-sig-initials-btn .apex-sig-icon {
+    font-size: 12px;
+}
+
+/* ===================================================================
+   VALIDATION
+   =================================================================== */
+
+.apex-sig-initials-validation {
+    padding: 8px 12px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.apex-sig-initials-validation.error {
+    color: var(--ut-palette-danger, #dc3545);
+    background: rgba(220, 53, 69, 0.1);
+}
+
+.apex-sig-initials-validation.success {
+    color: var(--ut-palette-success, #28a745);
+    background: rgba(40, 167, 69, 0.1);
+}
+
+/* ===================================================================
+   DARK MODE SUPPORT
+   =================================================================== */
+
+body.js-darkModePage .apex-sig-initials-wrapper,
+body[data-theme="dark"] .apex-sig-initials-wrapper {
+    background: #1a202c;
+    border-color: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-initials-header,
+body[data-theme="dark"] .apex-sig-initials-header {
+    background: #2d3748;
+    border-color: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-initials-title,
+body[data-theme="dark"] .apex-sig-initials-title {
+    color: #e2e8f0;
+}
+
+body.js-darkModePage .apex-sig-initials-tab,
+body[data-theme="dark"] .apex-sig-initials-tab {
+    color: #a0aec0;
+}
+
+body.js-darkModePage .apex-sig-initials-tab.active,
+body[data-theme="dark"] .apex-sig-initials-tab.active {
+    color: #63b3ed;
+    background: rgba(99, 179, 237, 0.1);
+    border-color: #63b3ed;
+}
+
+body.js-darkModePage .apex-sig-initials-canvas,
+body[data-theme="dark"] .apex-sig-initials-canvas {
+    background: #2d3748;
+    border-color: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-initials-input,
+body[data-theme="dark"] .apex-sig-initials-input {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+body.js-darkModePage .apex-sig-initials-font-select,
+body[data-theme="dark"] .apex-sig-initials-font-select {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+body.js-darkModePage .apex-sig-initials-preview,
+body[data-theme="dark"] .apex-sig-initials-preview {
+    background: #2d3748;
+}
+
+body.js-darkModePage .apex-sig-initials-preview-canvas,
+body[data-theme="dark"] .apex-sig-initials-preview-canvas {
+    background: #1a202c;
+    border-color: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-initials-footer,
+body[data-theme="dark"] .apex-sig-initials-footer {
+    background: #2d3748;
+    border-color: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-initials-clear,
+body[data-theme="dark"] .apex-sig-initials-clear {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+/* ===================================================================
+   RESPONSIVE
+   =================================================================== */
+
+@media (max-width: 480px) {
+    .apex-sig-initials-wrapper {
+        max-width: 100%;
+    }
+
+    .apex-sig-initials-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .apex-sig-initials-tabs {
+        width: 100%;
+    }
+
+    .apex-sig-initials-tab {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .apex-sig-initials-input-group {
+        flex-direction: column;
+    }
+
+    .apex-sig-initials-auto-btn {
+        width: 100%;
+        height: auto;
+        padding: 8px;
+    }
+}
+
+/* ===================================================================
+   INLINE VARIANT
+   =================================================================== */
+
+.apex-sig-initials-inline .apex-sig-initials-wrapper {
+    display: flex;
+    flex-direction: row;
+    max-width: none;
+    align-items: center;
+}
+
+.apex-sig-initials-inline .apex-sig-initials-header {
+    border-bottom: none;
+    border-right: 1px solid var(--ut-component-border-color, #dee2e6);
+}
+
+.apex-sig-initials-inline .apex-sig-initials-footer {
+    border-top: none;
+    border-left: 1px solid var(--ut-component-border-color, #dee2e6);
+    flex-direction: column;
+}
+
+/* ===================================================================
+   PRINT STYLES
+   =================================================================== */
+
+@media print {
+    .apex-sig-initials-header,
+    .apex-sig-initials-footer,
+    .apex-sig-initials-validation {
+        display: none !important;
+    }
+
+    .apex-sig-initials-wrapper {
+        border: none;
+        background: transparent;
+    }
+}
+
+/* ===================================================================
+   ACCESSIBILITY
+   =================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .apex-sig-initials-tab,
+    .apex-sig-initials-btn,
+    .apex-sig-initials-input {
+        transition: none;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .apex-sig-initials-tab.active {
+        border-width: 2px;
+    }
+
+    .apex-sig-initials-canvas {
+        border-width: 2px;
+    }
+}

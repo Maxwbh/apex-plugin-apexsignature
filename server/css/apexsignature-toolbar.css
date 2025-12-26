@@ -1,0 +1,424 @@
+/**
+ * APEX Signature Plugin - Customization Toolbar Styles
+ *
+ * @author Maxwell da Silva Oliveira - M&S do Brasil LTDA
+ * @version 3.3.0
+ * @license MIT
+ *
+ * Features:
+ * - Toolbar layout and styling
+ * - Color picker and preset buttons
+ * - Thickness slider
+ * - Tool buttons (Eraser, Undo, Redo, Clear)
+ * - Universal Theme integration
+ * - Dark mode support
+ * - Responsive design
+ *
+ * LinkedIn: /maxwbh
+ */
+
+/* ===================================================================
+   TOOLBAR CONTAINER
+   =================================================================== */
+
+.apex-sig-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background: var(--ut-component-background-color, #f8f9fa);
+    border: 1px solid var(--ut-component-border-color, #dee2e6);
+    border-radius: 6px;
+}
+
+/* Toolbar sections */
+.apex-sig-toolbar-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.apex-sig-toolbar-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ut-component-text-muted-color, #6c757d);
+    white-space: nowrap;
+}
+
+.apex-sig-toolbar-separator {
+    width: 1px;
+    height: 24px;
+    background: var(--ut-component-border-color, #dee2e6);
+    margin: 0 4px;
+}
+
+/* ===================================================================
+   COLOR SECTION
+   =================================================================== */
+
+.apex-sig-toolbar-colors {
+    flex-wrap: wrap;
+}
+
+.apex-sig-color-presets {
+    display: flex;
+    gap: 6px;
+}
+
+.apex-sig-color-btn {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.apex-sig-color-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.apex-sig-color-btn:focus {
+    outline: 2px solid var(--ut-palette-primary-alt, #1a73e8);
+    outline-offset: 2px;
+}
+
+.apex-sig-color-btn.active {
+    border-color: var(--ut-palette-primary-alt, #1a73e8);
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.3);
+}
+
+/* Custom color picker */
+.apex-sig-custom-color {
+    position: relative;
+}
+
+.apex-sig-color-picker {
+    width: 32px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid var(--ut-component-border-color, #ced4da);
+    border-radius: 4px;
+    cursor: pointer;
+    background: transparent;
+}
+
+.apex-sig-color-picker::-webkit-color-swatch-wrapper {
+    padding: 2px;
+}
+
+.apex-sig-color-picker::-webkit-color-swatch {
+    border: none;
+    border-radius: 2px;
+}
+
+.apex-sig-color-picker::-moz-color-swatch {
+    border: none;
+    border-radius: 2px;
+}
+
+/* ===================================================================
+   THICKNESS SECTION
+   =================================================================== */
+
+.apex-sig-toolbar-thickness {
+    min-width: 180px;
+}
+
+.apex-sig-slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.apex-sig-thickness-slider {
+    flex: 1;
+    min-width: 80px;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--ut-component-border-color, #dee2e6);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.apex-sig-thickness-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--ut-palette-primary-alt, #1a73e8);
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.apex-sig-thickness-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.apex-sig-thickness-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--ut-palette-primary-alt, #1a73e8);
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.apex-sig-thickness-slider:focus {
+    outline: none;
+}
+
+.apex-sig-thickness-slider:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.3);
+}
+
+.apex-sig-thickness-value {
+    min-width: 45px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ut-component-text-color, #212529);
+    text-align: right;
+}
+
+/* ===================================================================
+   TOOLS SECTION
+   =================================================================== */
+
+.apex-sig-toolbar-tools {
+    margin-left: auto;
+}
+
+.apex-sig-tool-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ut-component-text-color, #495057);
+    background: var(--ut-component-background-color, #ffffff);
+    border: 1px solid var(--ut-component-border-color, #ced4da);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-sig-tool-btn:hover:not(:disabled) {
+    background: var(--ut-palette-primary-alt, #1a73e8);
+    color: #ffffff;
+    border-color: var(--ut-palette-primary-alt, #1a73e8);
+}
+
+.apex-sig-tool-btn:focus {
+    outline: 2px solid var(--ut-palette-primary-alt, #1a73e8);
+    outline-offset: 2px;
+}
+
+.apex-sig-tool-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.apex-sig-tool-btn .apex-sig-icon {
+    font-size: 14px;
+}
+
+/* Eraser button active state */
+.apex-sig-eraser-btn.active {
+    background: var(--ut-palette-warning, #ffc107);
+    color: #212529;
+    border-color: var(--ut-palette-warning, #ffc107);
+}
+
+.apex-sig-eraser-btn.active:hover {
+    background: #e0a800;
+    border-color: #e0a800;
+}
+
+/* Clear button danger style */
+.apex-sig-clear-btn:hover:not(:disabled) {
+    background: var(--ut-palette-danger, #dc3545);
+    border-color: var(--ut-palette-danger, #dc3545);
+}
+
+/* ===================================================================
+   ERASER CURSOR
+   =================================================================== */
+
+.apex-sig-canvas.apex-sig-erasing {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="white" stroke="black" stroke-width="2"/></svg>') 12 12, crosshair;
+}
+
+/* ===================================================================
+   DARK MODE SUPPORT
+   =================================================================== */
+
+body.js-darkModePage .apex-sig-toolbar,
+body[data-theme="dark"] .apex-sig-toolbar {
+    background: #2d3748;
+    border-color: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-toolbar-label,
+body[data-theme="dark"] .apex-sig-toolbar-label {
+    color: #a0aec0;
+}
+
+body.js-darkModePage .apex-sig-toolbar-separator,
+body[data-theme="dark"] .apex-sig-toolbar-separator {
+    background: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-color-btn,
+body[data-theme="dark"] .apex-sig-color-btn {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+body.js-darkModePage .apex-sig-color-picker,
+body[data-theme="dark"] .apex-sig-color-picker {
+    border-color: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-thickness-slider,
+body[data-theme="dark"] .apex-sig-thickness-slider {
+    background: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-thickness-value,
+body[data-theme="dark"] .apex-sig-thickness-value {
+    color: #e2e8f0;
+}
+
+body.js-darkModePage .apex-sig-tool-btn,
+body[data-theme="dark"] .apex-sig-tool-btn {
+    background: #2d3748;
+    color: #e2e8f0;
+    border-color: #4a5568;
+}
+
+body.js-darkModePage .apex-sig-tool-btn:hover:not(:disabled),
+body[data-theme="dark"] .apex-sig-tool-btn:hover:not(:disabled) {
+    background: #4299e1;
+    border-color: #4299e1;
+}
+
+/* ===================================================================
+   RESPONSIVE DESIGN
+   =================================================================== */
+
+@media (max-width: 768px) {
+    .apex-sig-toolbar {
+        gap: 12px;
+        padding: 10px 12px;
+    }
+
+    .apex-sig-toolbar-section {
+        flex-wrap: wrap;
+    }
+
+    .apex-sig-toolbar-tools {
+        width: 100%;
+        margin-left: 0;
+        justify-content: center;
+        padding-top: 8px;
+        border-top: 1px solid var(--ut-component-border-color, #dee2e6);
+    }
+
+    .apex-sig-tool-btn {
+        flex: 1;
+        justify-content: center;
+        min-width: 70px;
+    }
+
+    .apex-sig-toolbar-separator {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .apex-sig-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .apex-sig-toolbar-section {
+        justify-content: center;
+    }
+
+    .apex-sig-toolbar-colors {
+        order: 1;
+    }
+
+    .apex-sig-toolbar-thickness {
+        order: 2;
+        width: 100%;
+    }
+
+    .apex-sig-toolbar-tools {
+        order: 3;
+        border-top: none;
+        padding-top: 0;
+    }
+
+    .apex-sig-slider-wrapper {
+        width: 100%;
+    }
+
+    .apex-sig-thickness-slider {
+        width: 100%;
+    }
+}
+
+/* ===================================================================
+   PRINT STYLES
+   =================================================================== */
+
+@media print {
+    .apex-sig-toolbar {
+        display: none !important;
+    }
+}
+
+/* ===================================================================
+   ACCESSIBILITY
+   =================================================================== */
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .apex-sig-color-btn {
+        border: 2px solid #000000;
+    }
+
+    .apex-sig-color-btn.active {
+        border-width: 3px;
+    }
+
+    .apex-sig-tool-btn {
+        border-width: 2px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .apex-sig-color-btn,
+    .apex-sig-tool-btn,
+    .apex-sig-thickness-slider::-webkit-slider-thumb {
+        transition: none;
+    }
+
+    .apex-sig-color-btn:hover {
+        transform: none;
+    }
+}

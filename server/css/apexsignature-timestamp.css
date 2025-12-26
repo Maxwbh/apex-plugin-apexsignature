@@ -1,0 +1,395 @@
+/**
+ * APEX Signature Plugin - Timestamp Overlay Styles
+ *
+ * @author Maxwell da Silva Oliveira - M&S do Brasil LTDA
+ * @version 3.4.0
+ * @license MIT
+ *
+ * Features:
+ * - Timestamp controls styling
+ * - Preview modal
+ * - Toggle switch
+ * - Position selector
+ * - Universal Theme integration
+ * - Dark mode support
+ *
+ * LinkedIn: /maxwbh
+ */
+
+/* ===================================================================
+   TIMESTAMP CONTROLS
+   =================================================================== */
+
+.apex-sig-timestamp-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 12px;
+    margin-left: auto;
+    background: transparent;
+}
+
+/* Toggle switch */
+.apex-sig-timestamp-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.apex-sig-timestamp-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: var(--ut-palette-primary-alt, #1a73e8);
+}
+
+.apex-sig-timestamp-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ut-component-text-color, #495057);
+    white-space: nowrap;
+}
+
+/* Position selector */
+.apex-sig-timestamp-position {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.apex-sig-timestamp-select {
+    padding: 6px 10px;
+    font-size: 13px;
+    color: var(--ut-component-text-color, #495057);
+    background: var(--ut-component-background-color, #ffffff);
+    border: 1px solid var(--ut-component-border-color, #ced4da);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.apex-sig-timestamp-select:hover:not(:disabled) {
+    border-color: var(--ut-palette-primary-alt, #1a73e8);
+}
+
+.apex-sig-timestamp-select:focus {
+    outline: 2px solid var(--ut-palette-primary-alt, #1a73e8);
+    outline-offset: 2px;
+}
+
+.apex-sig-timestamp-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Preview button */
+.apex-sig-timestamp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ut-component-text-color, #495057);
+    background: var(--ut-component-background-color, #ffffff);
+    border: 1px solid var(--ut-component-border-color, #ced4da);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-sig-timestamp-btn:hover:not(:disabled) {
+    background: var(--ut-palette-primary-alt, #1a73e8);
+    color: #ffffff;
+    border-color: var(--ut-palette-primary-alt, #1a73e8);
+}
+
+.apex-sig-timestamp-btn:focus {
+    outline: 2px solid var(--ut-palette-primary-alt, #1a73e8);
+    outline-offset: 2px;
+}
+
+.apex-sig-timestamp-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.apex-sig-timestamp-btn .apex-sig-icon {
+    font-size: 14px;
+}
+
+/* ===================================================================
+   PREVIEW MODAL
+   =================================================================== */
+
+.apex-sig-timestamp-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: apexSigFadeIn 0.2s ease;
+}
+
+@keyframes apexSigFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.apex-sig-timestamp-modal-content {
+    width: 90%;
+    max-width: 700px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--ut-component-background-color, #ffffff);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    animation: apexSigSlideIn 0.3s ease;
+}
+
+@keyframes apexSigSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modal header */
+.apex-sig-timestamp-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--ut-component-border-color, #dee2e6);
+}
+
+.apex-sig-timestamp-modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ut-component-text-color, #212529);
+}
+
+.apex-sig-timestamp-modal-close {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font-size: 24px;
+    line-height: 1;
+    color: var(--ut-component-text-muted-color, #6c757d);
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apex-sig-timestamp-modal-close:hover {
+    color: var(--ut-palette-danger, #dc3545);
+    background: rgba(220, 53, 69, 0.1);
+}
+
+/* Modal body */
+.apex-sig-timestamp-modal-body {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+}
+
+.apex-sig-timestamp-preview-img {
+    max-width: 100%;
+    max-height: 400px;
+    border: 1px solid var(--ut-component-border-color, #dee2e6);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+}
+
+/* Modal footer */
+.apex-sig-timestamp-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 20px;
+    border-top: 1px solid var(--ut-component-border-color, #dee2e6);
+}
+
+/* ===================================================================
+   INLINE CONTROLS VARIANT
+   =================================================================== */
+
+.apex-sig-timestamp-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 10px 12px;
+    margin-top: 8px;
+    background: var(--ut-component-background-color, #f8f9fa);
+    border: 1px solid var(--ut-component-border-color, #dee2e6);
+    border-radius: 4px;
+}
+
+/* ===================================================================
+   DARK MODE SUPPORT
+   =================================================================== */
+
+body.js-darkModePage .apex-sig-timestamp-controls,
+body[data-theme="dark"] .apex-sig-timestamp-controls {
+    background: transparent;
+}
+
+body.js-darkModePage .apex-sig-timestamp-label,
+body[data-theme="dark"] .apex-sig-timestamp-label {
+    color: #e2e8f0;
+}
+
+body.js-darkModePage .apex-sig-timestamp-select,
+body[data-theme="dark"] .apex-sig-timestamp-select {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+body.js-darkModePage .apex-sig-timestamp-btn,
+body[data-theme="dark"] .apex-sig-timestamp-btn {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+body.js-darkModePage .apex-sig-timestamp-btn:hover:not(:disabled),
+body[data-theme="dark"] .apex-sig-timestamp-btn:hover:not(:disabled) {
+    background: #4299e1;
+    border-color: #4299e1;
+}
+
+body.js-darkModePage .apex-sig-timestamp-modal-content,
+body[data-theme="dark"] .apex-sig-timestamp-modal-content {
+    background: #1a202c;
+}
+
+body.js-darkModePage .apex-sig-timestamp-modal-header h3,
+body[data-theme="dark"] .apex-sig-timestamp-modal-header h3 {
+    color: #e2e8f0;
+}
+
+body.js-darkModePage .apex-sig-timestamp-modal-body,
+body[data-theme="dark"] .apex-sig-timestamp-modal-body {
+    background: #2d3748;
+}
+
+body.js-darkModePage .apex-sig-timestamp-inline,
+body[data-theme="dark"] .apex-sig-timestamp-inline {
+    background: #2d3748;
+    border-color: #4a5568;
+}
+
+/* ===================================================================
+   RESPONSIVE DESIGN
+   =================================================================== */
+
+@media (max-width: 768px) {
+    .apex-sig-timestamp-controls {
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+        margin-left: 0;
+        padding: 10px 0;
+        border-top: 1px solid var(--ut-component-border-color, #dee2e6);
+    }
+
+    .apex-sig-timestamp-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .apex-sig-timestamp-position {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .apex-sig-timestamp-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .apex-sig-timestamp-modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .apex-sig-timestamp-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .apex-sig-timestamp-select {
+        width: 100%;
+    }
+
+    .apex-sig-timestamp-modal-body {
+        padding: 12px;
+    }
+
+    .apex-sig-timestamp-preview-img {
+        max-height: 300px;
+    }
+}
+
+/* ===================================================================
+   PRINT STYLES
+   =================================================================== */
+
+@media print {
+    .apex-sig-timestamp-controls,
+    .apex-sig-timestamp-modal {
+        display: none !important;
+    }
+}
+
+/* ===================================================================
+   ACCESSIBILITY
+   =================================================================== */
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .apex-sig-timestamp-toggle input[type="checkbox"] {
+        border: 2px solid currentColor;
+    }
+
+    .apex-sig-timestamp-select,
+    .apex-sig-timestamp-btn {
+        border-width: 2px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .apex-sig-timestamp-modal,
+    .apex-sig-timestamp-modal-content {
+        animation: none;
+    }
+
+    .apex-sig-timestamp-select,
+    .apex-sig-timestamp-btn {
+        transition: none;
+    }
+}
