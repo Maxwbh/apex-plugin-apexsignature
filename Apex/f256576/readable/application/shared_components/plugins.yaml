@@ -1,0 +1,298 @@
+---
+- # ====== Plugin: eSignDoc ====================================
+  id: 79920272411927439
+  identification: 
+    name: eSignDoc
+    internal-name: ASSENTA,ISHAB.ESIGNDOC
+    type: Template Component
+
+  advanced: 
+    quick-pick: false
+
+  subscription: 
+    version-number: 39535959170081
+
+  templates: 
+    available-as: 
+    - Single (Partial)
+    partial: |
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.0.1/docx.umd.min.js"></script>
+        
+      {if APEX$IS_LAZY_LOADING/}
+        <div></div>
+      {else/}
+        <div class="container">
+          <div class="header">
+            <h1><i class="fas fa-signature"></i> PDF Signature Tool</h1>
+          </div>
+          
+          <div class="main-content">
+            <div class="sidebar">
+              <div class="section">
+                <div class="tab-container">
+                  <div class="tab active" data-tab="draw">Draw</div>
+                  <div class="tab" data-tab="upload">Upload</div>
+                  <div class="tab" data-tab="camera">Camera</div>
+                </div>
+                
+                <div id="draw-tab" class="tab-content active">
+                  <canvas id="signature-pad" width="300" height="150"></canvas>
+                  <div class="btn-group">
+                    <button type="button" id="clear-signature" class="btn btn-outline btn-sm"><i class="fas fa-eraser"></i> Clear</button>
+                    <button type="button" id="prev-btn" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Preview</button>
+                  </div>
+                </div>
+                
+                <div id="upload-tab" class="tab-content">
+                  <input type="file" id="upload-signature" class="form-control" accept="image/*" />
+                  <div class="btn-group">
+                    <button type="button" id="upload-preview" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Preview</button>
+                  </div>
+                </div>
+                
+                <div id="camera-tab" class="tab-content">
+                  <video id="camera" autoplay hidden></video>
+                  <div class="btn-group">
+                    <button type="button" id="start-camera" class="btn btn-primary btn-sm"><i class="fas fa-camera"></i> Start Camera</button>
+                    <button type="button" id="capture-signature" class="btn btn-outline btn-sm" disabled><i class="fas fa-camera-retro"></i> Capture</button>
+                  </div>
+                  <canvas id="camera-canvas" width="300" height="150" hidden></canvas>
+                </div>
+              </div>
+      
+                
+      
+              
+              
+              <div class="section">
+                <h3 class="section-title">
+                  <span><i class="fas fa-palette"></i> Signature Preview</span>
+                </h3>
+                <img id="signature-preview" class="signature-preview" />
+                <div class="btn-group">
+                  <button type="button" id="save-sign" class="btn btn-outline btn-sm"><i class="fas fa-bookmark"></i> Save Sign</button>
+                  <button type="button" id="use-sign" class="btn btn-primary btn-sm" disabled><i class="fas fa-file-import"></i> Use This Sign</button>
+                </div>
+              </div>
+      
+              <div class="section" id="edit-section">
+                <div class="edit-toggle">
+                  <span class="edit-toggle-label">Edit Options</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-edit">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                
+                <div id="settings-panel" class="settings-panel">
+                  <div class="form-group">
+                    <label>Signature Thickness</label>
+                    <div class="range-slider">
+                      <input type="range" id="signature-thickness" min="1" max="10" value="2">
+                      <span id="thickness-value" class="range-value">2px</span>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Signature Color</label>
+                    <div class="color-picker">
+                      <input type="color" id="signature-color" value="#000000">
+                      <span id="signature-color-value" class="color-value">#000000</span>
+                    </div>
+                  </div>
+                  
+                  <div class="btn-group">
+                    <button type="button" id="apply-style" class="btn btn-primary btn-sm"><i class="fas fa-check"></i> Apply</button>
+                    <button type="button" id="clear-style" class="btn btn-danger btn-sm"><i class="fas fa-broom"></i> Reset</button>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="section" id="pdf-preview-toggle">
+                <div class="edit-toggle">
+                  <span><i class="fas fa-file-pdf"></i> PDF Preview</span>
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="toggle-preview">
+                      <span class="slider"></span>
+                    </label>
+                </div>
+              </div>
+              
+            </div>
+            
+            <div class="pdf-viewer">
+              <div class="section" id="pdf-view">
+                <h3 class="section-title">
+                  <span><i class="fas fa-file-pdf"></i> PDF Preview</span>
+                </h3>
+                
+                <div class="pdf-upload-container" id="upload-pdf-container">
+                  <input type="file" id="upload-pdf" class="form-control" accept="application/pdf" />
+                </div>
+                
+                <div id="pdf-container">
+                  <canvas id="pdf-canvas"></canvas>
+                  <div id="draggable-signature-container">
+                    <img id="draggable-signature" />
+                    <div class="resize-handle resize-handle-top-left"></div>
+                    <div class="resize-handle resize-handle-top-right"></div>
+                    <div class="resize-handle resize-handle-bottom-left"></div>
+                    <div class="resize-handle resize-handle-bottom-right"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="section" id="output-sec">
+                <h3 class="section-title">
+                  <i class="fas fa-cog"></i> Output Settings
+                </h3>
+                <div class="form-group">
+                  <label>Save Format</label>
+                  <select id="save-format" class="form-control">
+                    <option value="pdf">PDF Document</option>
+                    <option value="jpeg">JPEG Image</option>
+                    <option value="png">PNG Image</option>
+                    <!-- <option value="docx">Word Document</option> -->
+                  </select>
+                </div>
+                
+                <div class="pdf-actions">
+                  <button type="button" id="save-pdf" class="btn btn-primary"><i class="fas fa-save"></i> Save PDF</button>
+                  <button type="button" id="download-pdf" class="btn btn-outline"><i class="fas fa-download"></i> Download</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="feedback" class="feedback-message">
+          <i class="fas fa-check-circle"></i>
+          <span class="feedback-text">Operation successful</span>
+        </div>
+      
+      
+        <div class="set-values" id="set-values" data-edit-toggle="#EDIT_TOGGLE#" data-doc-sign="#DOC_SIGN#"></div>
+      
+      
+      {endif/}
+    translate-templates: false
+    default-escape-mode: HTML
+
+  callbacks: 
+    api-interface: Function
+
+  custom-attributes: 
+    substitute-attribute-values: true
+
+  css: 
+    file-urls: 
+    - '#APP_FILES#eSignDoc_style.css'
+    - null
+    - null
+    - '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">'
+    - '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">'
+
+  javascript: 
+    file-urls: 
+    - '<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>'
+    - '<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>'
+    - '<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.0.1/docx.umd.min.js"></script>'
+    - null
+    - '#APP_FILES#eSignDoc_script.js'
+
+  information: 
+    version: 1.0
+
+  custom-attributes: 
+  - # ====== Custom Attribute: Edit Toggle =======================
+    id: 80044737259211741
+    identification: 
+      static-id: EDIT_TOGGLE
+      attribute: 1
+      name: Edit Toggle
+      scope: Component
+
+    layout: 
+      sequence: 10
+
+    settings: 
+      type: Select List
+      lov-type: Static
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+      escape-mode: HTML
+
+    default: 
+      value: 0
+
+    entries: 
+    - # ====== Entry: Yes ==========================================
+      id: 80045314756212491
+      entry: 
+        sequence: 10
+        display: Yes
+        return: 1
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: No ===========================================
+      id: 80045787304213231
+      entry: 
+        sequence: 20
+        display: No
+        return: 0
+
+      advanced: 
+        quick-pick: false
+
+  - # ====== Custom Attribute: Doc Sign ==========================
+    id: 80046383449215528
+    identification: 
+      static-id: DOC_SIGN
+      attribute: 2
+      name: Doc Sign
+      scope: Component
+
+    layout: 
+      sequence: 20
+
+    settings: 
+      type: Select List
+      lov-type: Static
+      common: true
+      show-in-wizard: true
+      required: false
+      translatable: false
+      escape-mode: HTML
+
+    default: 
+      value: 0
+
+    entries: 
+    - # ====== Entry: Yes ==========================================
+      id: 80046978296216334
+      entry: 
+        sequence: 10
+        display: Yes
+        return: 1
+
+      advanced: 
+        quick-pick: false
+
+    - # ====== Entry: No ===========================================
+      id: 80047585363217074
+      entry: 
+        sequence: 20
+        display: No
+        return: 0
+
+      advanced: 
+        quick-pick: false
+

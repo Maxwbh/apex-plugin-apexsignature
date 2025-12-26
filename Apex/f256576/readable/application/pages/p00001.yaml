@@ -1,0 +1,1039 @@
+---
+# ====== Page: Home ==========================================
+id: 1
+identification: 
+  name: Home
+  alias: HOME
+  title: PLUGINS
+
+appearance: 
+  page-mode: Normal
+  page-template: Theme Default
+  template-options: 
+  - '#DEFAULT#'
+
+navigation-menu: 
+  override-user-interface-level: false
+
+navigation: 
+  cursor-focus: Do not focus cursor
+  warn-on-unsaved-changes: true
+
+security: 
+  authentication: Page Requires Authentication
+  deep-linking: Application Default
+  page-access-protection: Arguments Must Have Checksum
+  form-auto-complete: Off
+  browser-cache: Application Default
+
+session-management: 
+  rejoin-sessions: Application Default
+
+advanced: 
+  enable-duplicate-page-submissions: Yes - Enable page to be re-posted
+  reload-on-submit: Only for Success
+
+server-cache: 
+  caching: Disabled
+
+regions: 
+- # ====== Region: New =========================================
+  id: 79178109358484044
+  identification: 
+    name: New
+    type: eSignDoc
+
+  source: 
+    location: None
+    page-items-to-submit: 
+    - SIGNED_DOC_BLOB
+    - SIGNED_DOC_FILE_NAME
+    - SIGNATURE_BLOB
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: REGION_POSITION_08
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: None
+    render-components: Above Content
+
+  advanced: 
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    appearance: 
+      display: Single (Partial)
+
+    settings: 
+      edit-toggle: Yes
+      doc-sign: Yes
+
+- # ====== Region: items =======================================
+  id: 79178735234484050
+  identification: 
+    name: items
+    type: Static Content
+
+  layout: 
+    sequence: 50
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Standard
+    template-options: 
+    - '#DEFAULT#'
+    - t-Region--scrollBody
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    static-id: items_region
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+- # ====== Region: PLUGINS =====================================
+  id: 79917364833900020
+  identification: 
+    name: PLUGINS
+    type: Static Content
+
+  layout: 
+    sequence: 30
+    parent-region: No Parent
+    slot: REGION_POSITION_01
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Hero
+    template-options: 
+    - '#DEFAULT#'
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  image: 
+    file-url: '#APP_FILES#icons/app-icon-512.png'
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      output-as: HTML
+      expand-shortcuts: false
+
+- # ====== Region: Stored Datas ================================
+  id: 80096702198091001
+  identification: 
+    name: Stored Datas
+    type: Classic Report
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      SELECT 
+        ID,
+        FILENAME,
+        DBMS_LOB.GETLENGTH(PDF_BLOB) AS BLOB_LENGTH_BYTES,
+        ROUND(DBMS_LOB.GETLENGTH(PDF_BLOB)/1024, 2) AS SIZE_KB,
+        ROUND(DBMS_LOB.GETLENGTH(PDF_BLOB)/1024/1024, 2) AS SIZE_MB
+      FROM 
+        SIGNED_DOCS
+      ORDER BY 
+        ID DESC
+      
+      
+      
+
+  order-by: 
+    type: None
+
+  layout: 
+    sequence: 30
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Standard
+    template-options: 
+    - '#DEFAULT#'
+    - t-Region--scrollBody
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  server-cache: 
+    caching: Disabled
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  configuration: 
+    build-option: Commented Out # 79903666764899952
+
+  attributes: 
+    layout: 
+      number-of-rows-type: Static Value
+      number-of-rows: 15
+
+    appearance: 
+      template-type: Theme
+      template: Standard
+      template-options: 
+      - '#DEFAULT#'
+      - t-Report--altRowsDefault
+      - t-Report--rowHighlight
+
+    pagination: 
+      type: Row Ranges X to Y (with next and previous links)
+      display-position: Bottom - Right
+      partial-page-refresh: true
+
+    performance: 
+      lazy-loading: false
+
+    break-formatting: 
+      break-columns: No Break
+
+    advanced: 
+      strip-html: false
+      sort-nulls: Last
+
+    heading: 
+      type: Custom Headings
+
+    download: 
+      csv-export-enabled: false
+
+    printing: 
+      enabled: false
+
+  columns: 
+  - # ====== Column: ID ==========================================
+    id: 80096832151091002
+    identification: 
+      column-name: ID
+      type: Plain Text
+
+    heading: 
+      heading: Id
+      alignment: end
+
+    layout: 
+      sequence: 10
+      column-alignment: end
+
+    accessibility: 
+      value-identifies-row: false
+
+    sorting: 
+      sortable: false
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+    ui-defaults-reference: 
+      table-owner: Parsing Schema
+
+    security: 
+      escape-special-characters: true
+
+  - # ====== Column: FILENAME ====================================
+    id: 80096975680091003
+    identification: 
+      column-name: FILENAME
+      type: Plain Text
+
+    heading: 
+      heading: Filename
+      alignment: start
+
+    layout: 
+      sequence: 20
+      column-alignment: start
+
+    accessibility: 
+      value-identifies-row: false
+
+    sorting: 
+      sortable: false
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+    ui-defaults-reference: 
+      table-owner: Parsing Schema
+
+    security: 
+      escape-special-characters: true
+
+  - # ====== Column: BLOB_LENGTH_BYTES ===========================
+    id: 80097018712091004
+    identification: 
+      column-name: BLOB_LENGTH_BYTES
+      type: Plain Text
+
+    heading: 
+      heading: Blob Length Bytes
+      alignment: end
+
+    layout: 
+      sequence: 30
+      column-alignment: end
+
+    accessibility: 
+      value-identifies-row: false
+
+    sorting: 
+      sortable: false
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+    ui-defaults-reference: 
+      table-owner: Parsing Schema
+
+    security: 
+      escape-special-characters: true
+
+  - # ====== Column: SIZE_KB =====================================
+    id: 80097102913091005
+    identification: 
+      column-name: SIZE_KB
+      type: Plain Text
+
+    heading: 
+      heading: Size Kb
+      alignment: end
+
+    layout: 
+      sequence: 40
+      column-alignment: end
+
+    accessibility: 
+      value-identifies-row: false
+
+    sorting: 
+      sortable: false
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+    ui-defaults-reference: 
+      table-owner: Parsing Schema
+
+    security: 
+      escape-special-characters: true
+
+  - # ====== Column: SIZE_MB =====================================
+    id: 80097261716091006
+    identification: 
+      column-name: SIZE_MB
+      type: Download BLOB
+
+    heading: 
+      heading: File
+      alignment: end
+
+    layout: 
+      sequence: 50
+      column-alignment: end
+
+    accessibility: 
+      value-identifies-row: false
+
+    appearance: 
+      view-file-as: Attachment
+
+    blob-attributes: 
+      table-owner: Parsing Schema
+      table-name: SIGNED_DOCS
+      blob-column: PDF_BLOB
+      primary-key-column-1: ID
+      filename-column: FILENAME
+
+    sorting: 
+      sortable: false
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+    ui-defaults-reference: 
+      table-owner: Parsing Schema
+
+  - # ====== Column: DERIVED$01 ==================================
+    id: 80097645646091010
+    identification: 
+      column-name: DERIVED$01
+      type: Display Image
+
+    heading: 
+      heading: '&nbsp;'
+      alignment: start
+
+    layout: 
+      sequence: 60
+      column-alignment: start
+
+    accessibility: 
+      value-identifies-row: false
+
+    blob-attributes: 
+      table-owner: Parsing Schema
+      table-name: SIGNED_DOCS
+      blob-column: PDF_BLOB
+      primary-key-column-1: ID
+
+    sorting: 
+      sortable: false
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+- # ====== Region: Sign and docs ===============================
+  id: 239208108037121307
+  identification: 
+    name: Sign and docs
+    type: Classic Report
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      SELECT 
+          ID,
+          FILENAME,
+          SIGNED_DATE,
+          ROUND(DBMS_LOB.GETLENGTH(PDF_BLOB)/1024, 2) AS SIZE_KB,
+          ROUND(DBMS_LOB.GETLENGTH(PDF_BLOB)/1024/1024, 2) AS SIZE_MB,
+          DBMS_LOB.GETLENGTH(PDF_BLOB) AS BLOB_LENGTH_BYTES
+      FROM 
+          SIGNED_DOCS;
+
+  order-by: 
+    type: None
+
+  layout: 
+    sequence: 60
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Standard
+    template-options: 
+    - '#DEFAULT#'
+    - t-Region--scrollBody
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  server-cache: 
+    caching: Disabled
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    layout: 
+      number-of-rows-type: Static Value
+      number-of-rows: 15
+
+    appearance: 
+      template-type: Theme
+      template: Standard
+      template-options: 
+      - '#DEFAULT#'
+      - t-Report--stretch
+      - t-Report--altRowsDefault
+      - t-Report--rowHighlight
+
+    pagination: 
+      type: Row Ranges X to Y (with next and previous links)
+      display-position: Bottom - Right
+      partial-page-refresh: true
+
+    performance: 
+      lazy-loading: false
+
+    break-formatting: 
+      break-columns: No Break
+
+    advanced: 
+      strip-html: false
+      sort-nulls: Last
+
+    heading: 
+      type: Custom Headings
+
+    download: 
+      csv-export-enabled: false
+
+    printing: 
+      enabled: false
+
+  columns: 
+  - # ====== Column: FILENAME ====================================
+    id: 80135269979144342
+    identification: 
+      column-name: FILENAME
+      type: Plain Text
+
+    heading: 
+      heading: Filename
+      alignment: start
+
+    layout: 
+      sequence: 20
+      column-alignment: start
+
+    accessibility: 
+      value-identifies-row: false
+
+    sorting: 
+      sortable: true
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+    ui-defaults-reference: 
+      table-owner: Parsing Schema
+
+    security: 
+      escape-special-characters: true
+
+  - # ====== Column: SIGNED_DATE =================================
+    id: 80135663874144343
+    identification: 
+      column-name: SIGNED_DATE
+      type: Plain Text
+
+    heading: 
+      heading: Signed Date
+      alignment: start
+
+    layout: 
+      sequence: 30
+      column-alignment: start
+
+    accessibility: 
+      value-identifies-row: false
+
+    sorting: 
+      sortable: true
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+    ui-defaults-reference: 
+      table-owner: Parsing Schema
+
+    security: 
+      escape-special-characters: true
+
+  - # ====== Column: BLOB_LENGTH_BYTES ===========================
+    id: 80136018822144343
+    identification: 
+      column-name: BLOB_LENGTH_BYTES
+      type: Download BLOB
+
+    heading: 
+      heading: Blob Length Bytes
+      alignment: end
+
+    layout: 
+      sequence: 60
+      column-alignment: end
+
+    accessibility: 
+      value-identifies-row: false
+
+    appearance: 
+      view-file-as: Inline
+
+    blob-attributes: 
+      table-owner: Parsing Schema
+      table-name: SIGNED_DOCS
+      blob-column: PDF_BLOB
+      primary-key-column-1: ID
+      filename-column: FILENAME
+
+    sorting: 
+      sortable: true
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+    ui-defaults-reference: 
+      table-owner: Parsing Schema
+
+  - # ====== Column: ID ==========================================
+    id: 80136439891144343
+    identification: 
+      column-name: ID
+      type: Plain Text
+
+    heading: 
+      heading: Id
+      alignment: end
+
+    layout: 
+      sequence: 10
+      column-alignment: end
+
+    accessibility: 
+      value-identifies-row: false
+
+    sorting: 
+      sortable: true
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+    ui-defaults-reference: 
+      table-owner: Parsing Schema
+
+    security: 
+      escape-special-characters: true
+
+  - # ====== Column: SIZE_KB =====================================
+    id: 80245148159884101
+    identification: 
+      column-name: SIZE_KB
+      type: Plain Text
+
+    heading: 
+      heading: Size Kb
+      alignment: end
+
+    layout: 
+      sequence: 40
+      column-alignment: end
+
+    accessibility: 
+      value-identifies-row: false
+
+    sorting: 
+      sortable: true
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+    ui-defaults-reference: 
+      table-owner: Parsing Schema
+
+    security: 
+      escape-special-characters: true
+
+  - # ====== Column: SIZE_MB =====================================
+    id: 80245218268884102
+    identification: 
+      column-name: SIZE_MB
+      type: Plain Text
+
+    heading: 
+      heading: Size Mb
+      alignment: end
+
+    layout: 
+      sequence: 50
+      column-alignment: end
+
+    accessibility: 
+      value-identifies-row: false
+
+    sorting: 
+      sortable: true
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    advanced: 
+      compute-sum: false
+
+    ui-defaults-reference: 
+      table-owner: Parsing Schema
+
+    security: 
+      escape-special-characters: true
+
+page-items: 
+- # ====== Page Item: SIGNED_DOC_BLOB ==========================
+  id: 79178290830484045
+  identification: 
+    name: SIGNED_DOC_BLOB
+    type: Textarea
+
+  label: 
+    label: Signed Doc Blob
+    alignment: Left
+
+  settings: 
+    resizable: true
+    auto-height: false
+    character-counter: false
+    trim-spaces: Leading and Trailing
+
+  layout: 
+    sequence: 10
+    region: items # 79178735234484050
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+    width: 30
+    height: 5
+
+  validation: 
+    value-required: false
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: CLOB
+    storage: Per Session (Persistent)
+
+  quick-picks: 
+    show-quick-picks: false
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: SIGNED_DOC_FILE_NAME =====================
+  id: 79178366880484046
+  identification: 
+    name: SIGNED_DOC_FILE_NAME
+    type: Text Field
+
+  label: 
+    label: Signed Doc File Name
+    alignment: Left
+
+  settings: 
+    subtype: Text
+    trim-spaces: Leading and Trailing
+    text-case: NO CHANGE
+    submit-when-enter-pressed: false
+    disabled: false
+
+  layout: 
+    sequence: 10
+    region: items # 79178735234484050
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+    width: 30
+
+  validation: 
+    value-required: false
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    storage: Per Session (Persistent)
+
+  quick-picks: 
+    show-quick-picks: false
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: SIGNATURE_BLOB ===========================
+  id: 79178477930484047
+  identification: 
+    name: SIGNATURE_BLOB
+    type: Textarea
+
+  label: 
+    label: Signature Blob
+    alignment: Left
+
+  settings: 
+    resizable: true
+    auto-height: false
+    character-counter: false
+    trim-spaces: Leading and Trailing
+
+  layout: 
+    sequence: 10
+    region: items # 79178735234484050
+    slot: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating
+    template-options: 
+    - '#DEFAULT#'
+    width: 30
+    height: 5
+
+  validation: 
+    value-required: false
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: CLOB
+    storage: Per Session (Persistent)
+
+  quick-picks: 
+    show-quick-picks: false
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+buttons: 
+- # ====== Button: refersh =====================================
+  id: 80097300182091007
+  identification: 
+    button-name: refersh
+    label: Refersh
+
+  layout: 
+    sequence: 10
+    region: Sign and docs # 239208108037121307
+    slot: COPY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    button-template: Text
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+
+  behavior: 
+    action: Defined by Dynamic Action
+    execute-validations: true
+
+dynamic-actions: 
+- # ====== Dynamic Action: New =================================
+  id: 80097484135091008
+  identification: 
+    name: New
+
+  execution: 
+    sequence: 10
+    event-scope: Static
+    type: Immediate
+
+  when: 
+    event: Click
+    selection-type: Button
+    button: refersh # 80097300182091007
+
+  actions: 
+  - # ====== Action: Refresh =====================================
+    id: 80097524164091009
+    identification: 
+      action: Refresh
+
+    settings: 
+      maintain-pagination: false
+
+    affected-elements: 
+      selection-type: Region
+      region: Sign and docs # 239208108037121307
+
+    execution: 
+      sequence: 10
+      event: New # 80097484135091008
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+
+processes: 
+- # ====== Process: SAVE_SIGNED_PDF ============================
+  id: 79178516535484048
+  identification: 
+    name: SAVE_SIGNED_PDF
+    type: Execute Code
+    execution-chain: None
+
+  source: 
+    location: Local Database
+    language: PL/SQL
+    pl/sql-code: |
+      DECLARE
+        l_blob     BLOB;
+      BEGIN
+      
+          l_blob := apex_web_service.clobbase642blob(:SIGNED_DOC_BLOB);
+      
+          INSERT INTO SIGNED_DOCS (FILENAME, PDF_BLOB)
+          VALUES (apex_application.g_x01, l_blob);
+      END;
+      
+
+  execution: 
+    sequence: 10
+    point: Ajax Callback
+    run-process: Once Per Page Visit (default)
+
+- # ====== Process: SAVE_SIGNED_SIGN ===========================
+  id: 79178654565484049
+  identification: 
+    name: SAVE_SIGNED_SIGN
+    type: Execute Code
+    execution-chain: None
+
+  source: 
+    location: Local Database
+    language: PL/SQL
+    pl/sql-code: |
+      DECLARE
+        l_blob     BLOB;
+      BEGIN
+      
+          l_blob := apex_web_service.clobbase642blob(:SIGNATURE_BLOB);
+      
+          INSERT INTO SIGNED_DOCS (FILENAME, PDF_BLOB)
+          VALUES (apex_application.g_x01, l_blob);
+      END;
+      
+
+  execution: 
+    sequence: 20
+    point: Ajax Callback
+    run-process: Once Per Page Visit (default)
+

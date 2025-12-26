@@ -1,0 +1,82 @@
+---
+- # ====== Static Application File: icons/app-icon-32.png ======
+  id: 79907075076899988
+  identification: 
+    file-name: icons/app-icon-32.png
+
+  attributes: 
+    mime-type: image/png
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: icons/app-icon-144-rounded.p
+  id: 79907375492899991
+  identification: 
+    file-name: icons/app-icon-144-rounded.png
+
+  attributes: 
+    mime-type: image/png
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: icons/app-icon-192.png =====
+  id: 79907600171899999
+  identification: 
+    file-name: icons/app-icon-192.png
+
+  attributes: 
+    mime-type: image/png
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: icons/app-icon-256-rounded.p
+  id: 79907802567900001
+  identification: 
+    file-name: icons/app-icon-256-rounded.png
+
+  attributes: 
+    mime-type: image/png
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: icons/app-icon-512.png =====
+  id: 79908196397900002
+  identification: 
+    file-name: icons/app-icon-512.png
+
+  attributes: 
+    mime-type: image/png
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: eSignDoc_style.css =========
+  id: 79922333826948746
+  identification: 
+    file-name: eSignDoc_style.css
+
+  attributes: 
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: eSignDoc_script.js =========
+  id: 79923392240955793
+  identification: 
+    file-name: eSignDoc_script.js
+
+  attributes: 
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: eSignDoc_script.min.js =====
+  id: 80038363681168365
+  identification: 
+    file-name: eSignDoc_script.min.js
+
+  attributes: 
+    mime-type: text/javascript
+    file-character-set: Unicode UTF-8
+
+- # ====== Static Application File: eSignDoc_style.min.css =====
+  id: 80048862024226458
+  identification: 
+    file-name: eSignDoc_style.min.css
+
+  attributes: 
+    mime-type: text/css
+    file-character-set: Unicode UTF-8
+
