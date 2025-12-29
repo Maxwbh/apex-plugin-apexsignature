@@ -242,10 +242,11 @@ document.addEventListener('apexsignature-signed', function(e) {
 
 | Documento | Descricao |
 |-----------|-----------|
+| [**Documentacao Completa**](docs/APEX_SIGNATURE_v3.8.0_DOCUMENTATION.md) | Documentacao tecnica completa v3.8.0 |
 | [Guia de Instalacao](docs/INSTALLATION_GUIDE.md) | Instrucoes completas de instalacao |
 | [Guia do Usuario](docs/USER_GUIDE.md) | Documentacao detalhada de uso |
-| [Plano de Testes](docs/TEST_PLAN_v3_Complete.md) | Plano de testes completo para v3.x |
 | [Referencia da API](docs/API_REFERENCE.md) | Documentacao da API JavaScript |
+| [Plano de Testes](docs/TEST_PLAN_v3_Complete.md) | 394 casos de teste para v3.x |
 
 ### Guias de Recursos
 - [Captura Multi-Entrada](docs/MULTI_INPUT_GUIDE.md)
